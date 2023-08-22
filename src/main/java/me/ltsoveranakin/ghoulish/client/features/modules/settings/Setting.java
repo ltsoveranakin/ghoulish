@@ -2,7 +2,7 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings;
 
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.SettingParseException;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
-import me.ltsoveranakin.ghoulish.client.misc.NamedDesc;
+import me.ltsoveranakin.ghoulish.client.misc.named.NamedDesc;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

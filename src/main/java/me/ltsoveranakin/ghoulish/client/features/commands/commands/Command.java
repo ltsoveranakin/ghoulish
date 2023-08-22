@@ -1,6 +1,6 @@
 package me.ltsoveranakin.ghoulish.client.features.commands.commands;
 
-import me.ltsoveranakin.ghoulish.client.misc.NamedDesc;
+import me.ltsoveranakin.ghoulish.client.misc.named.NamedDesc;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
 
 public abstract class Command extends NamedDesc {

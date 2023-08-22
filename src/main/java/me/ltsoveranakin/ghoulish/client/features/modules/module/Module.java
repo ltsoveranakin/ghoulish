@@ -14,7 +14,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.r
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.range.range.RangeFloatSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.range.range.RangeIntSetting;
 import me.ltsoveranakin.ghoulish.client.misc.MCInst;
-import me.ltsoveranakin.ghoulish.client.misc.NamedDesc;
+import me.ltsoveranakin.ghoulish.client.misc.named.NamedDesc;
 import me.ltsoveranakin.ghoulish.client.util.TextUtil;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;

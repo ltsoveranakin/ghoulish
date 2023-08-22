@@ -1,4 +1,4 @@
-package me.ltsoveranakin.ghoulish.client.misc;
+package me.ltsoveranakin.ghoulish.client.misc.named;
 
 public class NamedDesc extends Named {
     private final String desc;

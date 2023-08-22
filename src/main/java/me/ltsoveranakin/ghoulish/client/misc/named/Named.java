@@ -1,4 +1,4 @@
-package me.ltsoveranakin.ghoulish.client.misc;
+package me.ltsoveranakin.ghoulish.client.misc.named;
 
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
 import net.minecraft.text.MutableText;
