@@ -1,0 +1,3 @@
+# Ghoulish
+
+Spooky minecraft client.
