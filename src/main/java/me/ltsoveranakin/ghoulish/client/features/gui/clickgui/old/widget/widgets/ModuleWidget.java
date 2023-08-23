@@ -1,8 +1,10 @@
 package me.ltsoveranakin.ghoulish.client.features.gui.clickgui.old.widget.widgets;
 
 import me.ltsoveranakin.ghoulish.client.features.gui.clickgui.old.widget.GuiWidget;
+import me.ltsoveranakin.ghoulish.client.features.modules.group.SettingGroup;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.label.LabelSetting;
 import me.ltsoveranakin.ghoulish.client.misc.MouseData;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import net.minecraft.client.gui.DrawContext;
@@ -15,9 +17,13 @@ public class ModuleWidget extends GuiWidget<SettingWidget> {
         super(m.getName());
         module = m;
 
-        for (Setting<?> setting : module.getSettings()) {
-            getChildren().add(new SettingWidget(setting, this));
-//            setLargest(RenderUtil2d.measureText(setting.getName()));
+        for (SettingGroup group : module.getGroups().values()) {
+            LabelSetting labelSetting = new LabelSetting(group.getName(), group.getDesc());
+            getChildren().add(new SettingWidget(labelSetting, this));
+
+            for (Setting<?> setting : group.getSettings()) {
+                getChildren().add(new SettingWidget(setting, this));
+            }
         }
     }
 

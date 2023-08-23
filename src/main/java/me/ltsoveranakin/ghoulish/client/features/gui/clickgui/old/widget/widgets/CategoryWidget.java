@@ -13,7 +13,7 @@ public class CategoryWidget extends GuiWidget<ModuleWidget> implements MCInst {
     private final ConfigCategory cfgCat;
     private final Category category;
 
-    public CategoryWidget(Category category, Pos startPos) {
+    public CategoryWidget(Category category) {
         super(category.name());
         this.category = category;
         cfgCat = ConfigFile.CURRENT_CONFIG.getCats().get(category);

@@ -24,14 +24,18 @@ public class ListCommand extends Command {
             }
 
             for(Setting<?> setting : module.getSettings()) {
-                sb.append("\n").append(setting.getName())
+                sb
+                        .append("\n")
+                        .append(setting.getName())
                         .append(": ")
                         .append(setting.get());
             }
         } else {
             for(int i = 0; i < ModuleManager.MODULES.size(); i++) {
                 var module = ModuleManager.MODULES.get(i);
-                sb.append("\n").append(module.getName());
+                sb
+                        .append("\n")
+                        .append(module.getName());
             }
         }
 

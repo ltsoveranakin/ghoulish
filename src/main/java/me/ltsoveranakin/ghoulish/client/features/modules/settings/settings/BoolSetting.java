@@ -39,4 +39,9 @@ public class BoolSetting extends Setting<Boolean> {
     public BoolSetting onSet(OnSet r) {
         return (BoolSetting) super.onSet(r);
     }
+
+    @Override
+    public <K> BoolSetting requiresSetting(Setting<K> setting, K toBe) {
+        return (BoolSetting) super.requiresSetting(setting, toBe);
+    }
 }

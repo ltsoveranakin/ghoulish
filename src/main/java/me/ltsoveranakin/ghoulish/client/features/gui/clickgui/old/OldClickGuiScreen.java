@@ -38,7 +38,7 @@ public class OldClickGuiScreen extends AbstractClickGui {
             CategoryWidget catWidget;
             if (!catMap.containsKey(module.getCategory())) {
                 posInc += RenderUtil2d.measureText(module.getCategory().name());
-                catWidget = new CategoryWidget(module.getCategory(), new Pos(50, posInc));
+                catWidget = new CategoryWidget(module.getCategory());
                 catMap.put(module.getCategory(), catWidget);
                 cats.add(catWidget);
             } else {

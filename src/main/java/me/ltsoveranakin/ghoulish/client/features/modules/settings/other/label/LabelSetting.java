@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.*;
 
 /**
- * A setting not intended to be used as a setting in a module, but rather to display a simple label
+ * A setting not intended to be used as a setting in a module, but rather to display a simple label. This setting should not be registered to a module.
  */
 public class LabelSetting extends Setting<Object> {
     public LabelSetting(String name, String desc) {

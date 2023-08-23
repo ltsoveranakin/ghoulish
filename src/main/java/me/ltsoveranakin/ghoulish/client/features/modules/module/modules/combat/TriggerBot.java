@@ -13,7 +13,7 @@ import net.minecraft.util.Hand;
 public class TriggerBot extends Module implements ISubTick {
     private final RangeIntSetting hitDelay = addMinMaxInt("hitdelay", "random delay for how long an ememy should be on your cursor before attacking", 2, 0, 10);
     private final BoolSetting playersOnly = addBool("playersonly", "only attacks players", true);
-    private final BoolSetting stopSprint = addBool("stopsprint", "sends stop sprint packet", true);
+    private final BoolSetting stopSprint = addBool("stopsprint", "sends stop sprint packet, and cancels your sprint", true);
     
     private int tick;
     private int nextTick = -1;

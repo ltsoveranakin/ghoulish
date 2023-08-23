@@ -28,6 +28,8 @@ public class RGBASettingCollection {
                                  FloatColorSetting speed,
                                  FloatColorSetting saturation,
                                  FloatColorSetting brightness) {
+
+
         this.r = r;
         this.g = g;
         this.b = b;

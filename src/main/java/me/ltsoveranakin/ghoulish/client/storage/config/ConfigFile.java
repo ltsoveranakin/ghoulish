@@ -127,6 +127,9 @@ public class ConfigFile implements Saveable, Loadable {
 
         dis.close(); // auto closes the FileInputStream
     }
+    public File getFile() {
+        return file;
+    }
 
     public boolean delete() {
         return file.delete();

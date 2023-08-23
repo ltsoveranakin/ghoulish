@@ -2,6 +2,7 @@ package me.ltsoveranakin.ghoulish.client.features.modules.module;
 
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.IDispatchable;
 import me.ltsoveranakin.ghoulish.client.features.modules.Category;
+import me.ltsoveranakin.ghoulish.client.features.modules.group.SettingGroup;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.RGBASettingCollection;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.colorsettings.*;
@@ -21,20 +22,29 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Module extends NamedDesc implements MCInst, IDispatchable {
     private final List<Setting<?>> settings = new ArrayList<>();
+    private final Map<String, SettingGroup> groups = new LinkedHashMap<>();
 
     private final Category category;
 
-    private final LabelSetting moduleSetting = addLabel("global", "these settings are the same on every module, and change how the module behaves in the same way");
-    private final BoolSetting enabled = addBool("enabled", "setting on whether or not the module is enable", false);
-    private final BindSetting bind = addBind("bind", "keybinding, when this key is pressed it will toggle the module");
-    private final EnumSetting<NotifMode> notifs = addEnum("notifications", "", NotifMode.NONE);
-    private final BoolSetting renderOnList = addBool("renderonlist", "renders this module on the arraylist", true);
-    private final LabelSetting restLabel = addLabel("settings", "these settings are different on each module and vary greatly");
+    private final SettingGroup globalSettings = group("global", "these settings are the same on every module, and change how the module behaves in the same way");
+
+    private final BoolSetting enabled = globalSettings
+            .register(addBool("enabled", "setting on whether or not the module is enable", false));
+
+    private final BindSetting bind = globalSettings
+            .register(addBind("bind", "keybinding, when this key is pressed it will toggle the module"));
+
+    private final EnumSetting<NotifMode> notifs = globalSettings
+            .register(addEnum("notifications", "", NotifMode.NONE));
+
+    private final BoolSetting renderOnList = globalSettings
+            .register(addBool("renderonlist", "renders this module on the arraylist", true));
+
+    private final SettingGroup defaultLabel = group("default", "these settings are different on each module and vary greatly");
 
 
     public Module(String name, String desc, Category cat) {
@@ -60,6 +70,10 @@ public class Module extends NamedDesc implements MCInst, IDispatchable {
         return settings;
     }
 
+    public Map<String, SettingGroup> getGroups() {
+        return groups;
+    }
+
     public final void toggle() {
         if (enabled.get()) {
             disable();
@@ -78,33 +92,38 @@ public class Module extends NamedDesc implements MCInst, IDispatchable {
         onEnable();
     }
 
-    public void onDisable() {
-
-    }
-
-    public void onEnable() {
-
-    }
+    public void onDisable() {}
+    public void onEnable() {}
+    public void onPostInit() {}
 
     protected void info(String txt) {
         info(Text.literal(txt));
     }
 
     public final void postInit() {
+        for(Setting<?> setting : settings) {
+            if(setting.getGroup() == null) {
+                defaultLabel.register(setting);
+            }
+        }
         onPostInit();
     }
 
-    public void onPostInit() {
+    protected SettingGroup group(String name, String desc) {
+        return new SettingGroup(name, desc, this);
+    }
 
+    private <T extends Setting<?>> T addSetting(T setting) {
+        if(setting instanceof LabelSetting) {
+            throw new RuntimeException("Cannot add label setting to module");
+        }
+
+        settings.add(setting);
+        return setting;
     }
 
     protected BoolSetting addBool(String name, String desc, boolean defaultVal) {
         return addSetting(new BoolSetting(name, desc, defaultVal, this));
-    }
-
-    private <T extends Setting<?>> T addSetting(T setting) {
-        settings.add(setting);
-        return setting;
     }
 
     protected BindSetting addBind(String name, String desc) {
@@ -120,22 +139,19 @@ public class Module extends NamedDesc implements MCInst, IDispatchable {
     }
 
     protected RGBASettingCollection addCol(String name, String desc, Color defCol) {
-        addLabel(name + " color settings", "various settings to change the color appearance");
+        SettingGroup collectionGroup = group(name + " color settings", "various settings to change the color appearance");
 
-        var r = addIntCol(name + " red", desc, defCol.getRed());
-        var g = addIntCol(name + " green", desc, defCol.getGreen());
-        var b = addIntCol(name + " blue", desc, defCol.getBlue());
-        var a = addIntCol(name + " alpha", desc, defCol.getAlpha());
+        var r = collectionGroup.register(addIntCol(name + " red", desc, defCol.getRed()));
+        var g = collectionGroup.register(addIntCol(name + " green", desc, defCol.getGreen()));
+        var b = collectionGroup.register(addIntCol(name + " blue", desc, defCol.getBlue()));
+        var a = collectionGroup.register(addIntCol(name + " alpha", desc, defCol.getAlpha()));
 
-        var rainbow = addSetting(new BoolColorSetting(name + "rainbow", desc, false, this));
-        var speed = addFloatCol(name + " rainbow speed", desc, .001f, 0, .001f);
-        var saturation = addFloatCol(name + " rainbow saturation", desc, 1);
-        var brightness = addFloatCol(name + " rainbow brightness", desc, 1);
+        var rainbow = collectionGroup.register(addSetting(new BoolColorSetting(name + "rainbow", desc, false, this)));
+        var speed = collectionGroup.register(addFloatCol(name + " rainbow speed", desc, .001f, 0, .001f));
+        var saturation = collectionGroup.register(addFloatCol(name + " rainbow saturation", desc, 1));
+        var brightness = collectionGroup.register(addFloatCol(name + " rainbow brightness", desc, 1));
+
         return new RGBASettingCollection(r, g, b, a, rainbow, speed, saturation, brightness);
-    }
-
-    protected LabelSetting addLabel(String name, String desc) {
-        return addSetting(new LabelSetting(name, desc));
     }
 
     private IntColorSetting addIntCol(String name, String desc, int defVal) {

@@ -27,13 +27,15 @@ public class AutoCrystal extends Module implements ISubTick {
     private final DoubleSetting maxDistBreak = addDub("maxdistbreak", "maximum distance to break crystals", 3, 1, 6).requiresSetting(breakCrystals, true);
     private final BoolSetting placeCrystals = addBool("place", "auto places crystals", true);
     private final DoubleSetting maxDistPlace = addDub("maxdistplace", "maximum distance to place crystals", 3, 1, 6).requiresSetting(placeCrystals, true);
-    private final BoolSetting topOnly = addBool("toponly", "only places crystals when looking at the top of blocks", true);
+    private final BoolSetting topOnly = addBool("toponly", "only places crystals when looking at the top of blocks", true).requiresSetting(placeCrystals, true);
 
     private int tick;
     private int clicksAfterLeft;
 
     public AutoCrystal() {
         super("autocrystal", "automatically places/breaks crystals", Category.COMBAT);
+
+        clicksAfter.requiresSetting(breakCrystals, true);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class AutoCrystal extends Module implements ISubTick {
 
             List<EndCrystalEntity> crystals = mc.world.getEntitiesByClass(EndCrystalEntity.class, box, (e) -> true);
 
-            if (crystals.size() > 0) {
+            if (!crystals.isEmpty()) {
                 mc.player.swingHand(Hand.MAIN_HAND);
                 mc.interactionManager.attackEntity(mc.player, crystals.get(0));
                 clicksAfterLeft = clicksAfter.get();

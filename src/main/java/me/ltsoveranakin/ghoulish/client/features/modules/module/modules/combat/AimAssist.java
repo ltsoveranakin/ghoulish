@@ -16,7 +16,9 @@ import net.minecraft.util.math.MathHelper;
 public class AimAssist extends Module implements ISubWorldRenderEnd {
     private final FloatSetting distance = addFloat("distance", "distance to begin aiming", 4, 3, 6);
     private final EnumSetting<RotMode> rotMode = addEnum("rotation", "the mode for rotations", RotMode.LERP);
-    private final FloatSetting strength = addFloat("strength", "strength of rotation", 0, 0, 1);
+
+    private final FloatSetting lerpStrength = addFloat("strength", "strength of rotation", .3f, .0001f, 1).requiresSetting(rotMode, RotMode.LERP);
+    private final FloatSetting normalStrength = addFloat("strength", "strength of rotation", .3f, .0001f, 1).requiresSetting(rotMode, RotMode.NORMAL);
 
     private final BoolSetting seeOnly = addBool("seeonly", "only aims when you can see the target", true);
     private final FloatSetting distStop = addFloat("diststop", "the rotation distance (in degrees) on when to stop aim assist... (stops when rotation distance is less than this value)", 2, 0, 10);
@@ -58,13 +60,13 @@ public class AimAssist extends Module implements ISubWorldRenderEnd {
 
         switch (rotMode.get()) {
             case LERP -> {
-                float stren = strength.get() / 50;
+                float stren = lerpStrength.get() / 50;
                 yaw = MathHelper.lerpAngleDegrees(stren, mc.player.getYaw(), (float) targetRot.yaw());
                 pitch = MathHelper.lerpAngleDegrees(stren, mc.player.getPitch(), (float) targetRot.pitch());
             }
 
             case NORMAL -> {
-                float stren = strength.get() / 10;
+                float stren = normalStrength.get();
 
                 yaw = mc.player.getYaw();
                 if (Math.abs(yawDist) > stren) {

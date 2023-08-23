@@ -13,6 +13,7 @@ public abstract class Setting<T> extends NamedDesc {
     private final Module mod;
     private final EnumSettingType enumSettingType;
     private T val;
+    private String group;
 
     @Nullable
     private List<ReqCB> requirements;
@@ -31,7 +32,6 @@ public abstract class Setting<T> extends NamedDesc {
     }
 
     public final void fromBytes(DataInputStream dis) throws IOException, SettingParseException {
-
         System.out.println("MODULE -> " + getMod() + "; SETTING -> " + getName() + "; TYPE -> " + getSettingType());
 
         T beforeVal = get();
@@ -92,6 +92,14 @@ public abstract class Setting<T> extends NamedDesc {
 
     public boolean set(String str) throws Exception {
         return set(parse(str));
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getGroup() {
+        return group;
     }
 
     public abstract @NotNull T parse(String str) throws Exception;

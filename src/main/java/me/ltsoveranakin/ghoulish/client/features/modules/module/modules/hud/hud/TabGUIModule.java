@@ -17,15 +17,15 @@ import java.awt.Color;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class TabGUIModule extends AbstractHudModule implements ISubKey {
-    public final RGBASettingCollection textColor = addCol("textcolor", "color of the text", new Color(29, 68, 26, 255));
+    public final RGBASettingCollection textColor = addCol("text", "color of the text", new Color(29, 68, 26, 255));
     private final BindSetting selectBind = addBind("select", "the keybind to select the current selection", GLFW_KEY_RIGHT);
     private final BindSetting deselectBind = addBind("deselect", "the keybind to deselect the current selection", GLFW_KEY_LEFT);
     private final BindSetting upBind = addBind("up", "the keybind to select the above selection", GLFW_KEY_UP);
     private final BindSetting downBind = addBind("down", "the keybind to select the below selection", GLFW_KEY_DOWN);
 
-    private final RGBASettingCollection bGColor = addCol("bgcolor", "the background color of the tabgui", new Color(0, 0, 0));
-    private final RGBASettingCollection bGSelected = addCol("bgselectedcolor", "the selected background color of the tabgui", new Color(20, 255, 0, 255));
-    private final RGBASettingCollection bgModuleEnabled = addCol("bgmoduleenabled", "the background color of settings which are enabled", new Color(191, 229, 189, 255));
+    private final RGBASettingCollection bGColor = addCol("background", "the background color of the tabgui", new Color(0, 0, 0));
+    private final RGBASettingCollection bGSelected = addCol("background", "the selected background color of the tabgui", new Color(20, 255, 0, 255));
+    private final RGBASettingCollection bgModuleEnabled = addCol("background module enabled", "the background color of settings which are enabled", new Color(191, 229, 189, 255));
 
     private int categoryIndex = 0;
     private Category categoryOn = Category.values()[categoryIndex];

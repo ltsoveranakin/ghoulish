@@ -15,8 +15,8 @@ import java.util.*;
 
 public class ArrayListModule extends AbstractHudModule {
     private final IntSetting sideBuf = addInt("padding", "padding beyond the module name added to the background", 3, 0, 8);
-    private final RGBASettingCollection bgArCol = addCol("bgcol", "background color of the arraylist", new Color(33, 82, 171, 144));
-    private final RGBASettingCollection arTxtCol = addCol("txtcol", "color of the text on the arraylist", new Color(12, 18, 35, 144));
+    private final RGBASettingCollection bgArCol = addCol("background", "background color of the arraylist", new Color(33, 82, 171, 144));
+    private final RGBASettingCollection arTxtCol = addCol("text", "color of the text on the arraylist", new Color(12, 18, 35, 144));
 
     private List<Module> sortedModules;
     private boolean firstRen = true;
