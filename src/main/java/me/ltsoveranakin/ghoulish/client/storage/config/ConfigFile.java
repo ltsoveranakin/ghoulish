@@ -1,8 +1,8 @@
 package me.ltsoveranakin.ghoulish.client.storage.config;
 
 import me.ltsoveranakin.ghoulish.client.features.modules.Category;
-import me.ltsoveranakin.ghoulish.client.interfaces.Loadable;
-import me.ltsoveranakin.ghoulish.client.interfaces.Saveable;
+import me.ltsoveranakin.ghoulish.client.interfaces.state.Loadable;
+import me.ltsoveranakin.ghoulish.client.interfaces.state.Saveable;
 import me.ltsoveranakin.ghoulish.client.storage.*;
 import me.ltsoveranakin.ghoulish.client.storage.config.config.ConfigCategory;
 

@@ -1,6 +1,6 @@
 package me.ltsoveranakin.ghoulish.client.features.modules.settings;
 
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.SettingParseException;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.misc.named.NamedDesc;
 import org.jetbrains.annotations.NotNull;
@@ -31,10 +31,10 @@ public abstract class Setting<T> extends NamedDesc {
         }
     }
 
-    public final void fromBytes(DataInputStream dis) throws IOException, SettingParseException {
-        System.out.println("MODULE -> " + getMod() + "; SETTING -> " + getName() + "; TYPE -> " + getSettingType());
-
-        T beforeVal = get();
+    public final void fromBytes(DataInputStream dis) throws IOException {
+//        System.out.println("MODULE -> " + getMod() + "; SETTING -> " + getName() + "; TYPE -> " + getSettingType());
+//
+//        T beforeVal = get();
 
         set(fromBytesImpl(dis));
     }
@@ -102,7 +102,7 @@ public abstract class Setting<T> extends NamedDesc {
         return group;
     }
 
-    public abstract @NotNull T parse(String str) throws Exception;
+    public abstract @NotNull T parse(String str) throws ParseException;
 
     public <K> Setting<T> requiresSetting(Setting<K> setting, K toBe) {
         return requires(() -> setting.equals(toBe));

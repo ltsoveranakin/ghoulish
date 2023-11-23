@@ -2,6 +2,7 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.other.label;
 
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -26,7 +27,7 @@ public class LabelSetting extends Setting<Object> {
 
     @NotNull
     @Override
-    public Object parse(String str) throws Exception {
+    public Object parse(String str) throws ParseException {
         return null;
     }
 }

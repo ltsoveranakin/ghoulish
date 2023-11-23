@@ -6,6 +6,7 @@ import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.packet.ISubCPacket;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.commands.*;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import org.jetbrains.annotations.Nullable;
@@ -61,12 +62,12 @@ public class CommandManager implements ISubCPacket {
                 for (Command cmd : COMMANDS) {
                     if (cmd.getName().equalsIgnoreCase(cmdName)) {
                         try {
-                            if (!cmd.commandIn(args)) {
-                                ChatUtil.info("Issue with command");
-                            }
-                        } catch (Exception e) {
+                           cmd.commandIn(args);
+                        } catch (ParseException e) {
                             ChatUtil.info("Failed to handle command " + e.getMessage());
                             e.printStackTrace();
+                        } catch (InsufficientArgumentException e) {
+
                         }
 
                         return;

@@ -3,11 +3,11 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.NumSetting;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class ByteSetting extends NumSetting<Byte> {
     public ByteSetting(String name, String desc, Byte defVal, Byte minVal, Byte maxVal, Module mod) {
@@ -15,8 +15,8 @@ public class ByteSetting extends NumSetting<Byte> {
     }
 
     @Override
-    public @NotNull Byte parseNum(String str) throws Exception {
-        return Byte.parseByte(str);
+    public @NotNull Byte parseNum(String str) throws ParseException {
+        return ParserUtil.BYTE_PARSER.parse(str);
     }
 
     @Override

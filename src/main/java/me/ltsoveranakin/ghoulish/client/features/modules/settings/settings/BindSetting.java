@@ -3,6 +3,8 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
@@ -25,7 +27,7 @@ public class BindSetting extends Setting<Integer> {
     }
 
     @Override
-    public @NotNull Integer parse(String str) throws Exception {
-        return Integer.parseInt(str);
+    public @NotNull Integer parse(String str) throws ParseException {
+        return ParserUtil.INTEGER_PARSER.parse(str);
     }
 }

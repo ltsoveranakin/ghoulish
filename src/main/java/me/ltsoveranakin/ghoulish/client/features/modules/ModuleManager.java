@@ -26,6 +26,8 @@ import java.util.*;
 
 public class ModuleManager implements ISubKey, MCInst {
     public static final List<Module> MODULES = new ArrayList<>();
+    public static final List<String> MODULE_NAMES = new ArrayList<>();
+
     private static final Map<Class<? extends Module>, Module> moduleMap = new HashMap<>();
     private static final Map<String, Module> moduleNameMap = new HashMap<>();
 
@@ -35,6 +37,8 @@ public class ModuleManager implements ISubKey, MCInst {
         addModules();
         MODULES.sort(Comparator.comparing(Module::getName));
         Subscriptions.addSub(new ModuleManager());
+
+        MODULES.forEach(mod -> MODULE_NAMES.add(mod.getName()));
     }
 
     private static void addModules() {

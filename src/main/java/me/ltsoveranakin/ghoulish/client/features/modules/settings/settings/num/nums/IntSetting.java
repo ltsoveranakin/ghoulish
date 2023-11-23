@@ -4,11 +4,11 @@ import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.NumSetting;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class IntSetting extends NumSetting<Integer> {
     public IntSetting(String name, String desc, Integer defVal, Integer minVal, Integer maxVal, Module mod) {
@@ -16,8 +16,8 @@ public class IntSetting extends NumSetting<Integer> {
     }
 
     @Override
-    public @NotNull Integer parseNum(String str) throws Exception {
-        return Integer.parseInt(str);
+    public @NotNull Integer parseNum(String str) throws ParseException {
+        return ParserUtil.INTEGER_PARSER.parse(str);
     }
 
     @Override

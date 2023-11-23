@@ -1,7 +1,7 @@
 package me.ltsoveranakin.ghoulish.client.storage;
 
-import me.ltsoveranakin.ghoulish.client.interfaces.Loadable;
-import me.ltsoveranakin.ghoulish.client.interfaces.Saveable;
+import me.ltsoveranakin.ghoulish.client.interfaces.state.Loadable;
+import me.ltsoveranakin.ghoulish.client.interfaces.state.Saveable;
 import me.ltsoveranakin.ghoulish.client.storage.config.ConfigFile;
 
 import java.io.*;

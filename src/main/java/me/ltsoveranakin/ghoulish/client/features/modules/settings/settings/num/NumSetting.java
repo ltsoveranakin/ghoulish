@@ -3,6 +3,8 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.OutOfBoundsParseException;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class NumSetting<T extends Number & Comparable<T>> extends Setting<T> {
@@ -49,15 +51,15 @@ public abstract class NumSetting<T extends Number & Comparable<T>> extends Setti
         return max;
     }
 
-    public T parse(String str) throws Exception {
+    public T parse(String str) throws ParseException {
         T parsed = parseNum(str);
         if (!isInBounds(parsed)) {
-            throw new Exception("OutOfRange");
+            throw new OutOfBoundsParseException(parsed, getMin(), getMax(), null);
         }
         return parsed;
     }
 
-    public abstract @NotNull T parseNum(String str) throws Exception;
+    public abstract @NotNull T parseNum(String str) throws ParseException;
 
     public abstract boolean setLong(long lon);
 

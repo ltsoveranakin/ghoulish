@@ -1,45 +1,48 @@
 package me.ltsoveranakin.ghoulish.client.features.commands.commands.commands;
 
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
+import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.arguments.ListArgument;
 import me.ltsoveranakin.ghoulish.client.features.modules.ModuleManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
 
 public class ListCommand extends Command {
+    private final ListArgument moduleName = addList("module name", "the name of the module to choose", ModuleManager.MODULE_NAMES).optional();
 
     public ListCommand() {
         super("list", "lists modules");
     }
 
     @Override
-    public boolean commandIn(String[] args) {
+    protected void handleCommandImpl() {
         StringBuilder sb = new StringBuilder();
 
-        if(args.length == 1) {
-            Module module = ModuleManager.getModule(args[0]);
+        if (moduleName.get() != null) {
+            Module module = ModuleManager.getModule(moduleName.get());
 
-            if(module == null) {
+            if (module == null) {
                 error("Module not found");
-                return false;
+                return;
             }
 
-            for(Setting<?> setting : module.getSettings()) {
+            for (Setting<?> setting : module.getSettings()) {
                 sb
                         .append("\n")
                         .append(setting.getName())
                         .append(": ")
                         .append(setting.get());
             }
-        } else {
-            for(int i = 0; i < ModuleManager.MODULES.size(); i++) {
-                var module = ModuleManager.MODULES.get(i);
-                sb
-                        .append("\n")
-                        .append(module.getName());
-            }
+
+            info(sb.toString());
+            return;
+        }
+
+        for (String moduleName : ModuleManager.MODULE_NAMES) {
+            sb
+                    .append("\n")
+                    .append(moduleName);
         }
 
         info(sb.toString());
-        return true;
     }
 }

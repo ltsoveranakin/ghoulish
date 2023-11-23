@@ -3,7 +3,7 @@ package me.ltsoveranakin.ghoulish.client.storage.config.config;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.SettingParseException;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 
 import java.io.*;
 
@@ -16,7 +16,7 @@ public class ConfigSetting implements StorageCategory {
 
     private boolean usedDummy = false;
 
-    public ConfigSetting(DataInputStream dis, Module module) throws IOException, SettingParseException {
+    public ConfigSetting(DataInputStream dis, Module module) throws IOException, ParseException {
         String settingName = dis.readUTF();
         byte enumSettingOrdinal = dis.readByte();
 
@@ -31,7 +31,7 @@ public class ConfigSetting implements StorageCategory {
         }
 
         if (settingType != setting.getSettingType()) {
-            throw new SettingParseException(setting, settingType.toString());
+            throw new IOException();
         }
 
         setting.fromBytes(dis);
@@ -46,9 +46,11 @@ public class ConfigSetting implements StorageCategory {
         if (setting.getSettingType() == EnumSettingType.LABEL) {
             return;
         }
-        if(setting.getName() == null) {
+
+        if (setting.getName() == null) {
             System.out.println("SETTING NAME NULL; MODULE: " + setting.getMod() + " SETTING: " + setting.getSettingType());
         }
+
         dos.writeUTF(setting.getName());
         setting.toBytes(dos);
     }

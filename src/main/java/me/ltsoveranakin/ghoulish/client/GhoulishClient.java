@@ -22,7 +22,7 @@ public class GhoulishClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
 
         ModuleManager.init();
         StorageHandler.init();
@@ -33,8 +33,8 @@ public class GhoulishClient implements ClientModInitializer {
 
         ModuleManager.MODULES.forEach(Module::postInit);
 
-        long endTime = System.nanoTime();
+        long endTime = System.currentTimeMillis();
 
-        LOG.info("Ghoulish init completed in " + (endTime - startTime) + " nanoseconds.");
+        LOG.info("Ghoulish init completed in " + (endTime - startTime) + " milliseconds.");
     }
 }

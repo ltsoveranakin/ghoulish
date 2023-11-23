@@ -3,6 +3,8 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.Color;
@@ -25,13 +27,8 @@ public class ColorSetting extends Setting<Color> {
     }
 
     @Override
-    public @NotNull Color parse(String str) throws Exception {
-        String[] spl = str.split(",");
-        int r = Integer.parseInt(spl[0]);
-        int g = Integer.parseInt(spl[1]);
-        int b = Integer.parseInt(spl[2]);
-        int a = Integer.parseInt(spl[3]);
-        return new Color(r, g, b, a);
+    public @NotNull Color parse(String str) throws ParseException {
+        return ParserUtil.COLOR_PARSER.parse(str);
     }
 
     @Override

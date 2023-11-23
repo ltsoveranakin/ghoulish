@@ -2,8 +2,14 @@ package me.ltsoveranakin.ghoulish.client.features.commands.commands.commands;
 
 import me.ltsoveranakin.ghoulish.client.features.commands.CommandManager;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
+import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.arguments.ListArgument;
 
 public class HelpCommand extends Command {
+    private final ListArgument commandName = addList("command name", "the name of the command to choose", () -> CommandManager.COMMANDS
+            .stream()
+            .map(Command::getName)
+            .toList()).optional();
+
     public HelpCommand() {
         super("help", "lists commands");
     }
@@ -20,17 +26,19 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public boolean commandIn(String[] args) {
-        Command cmd;
-        if(args.length == 0) {
+    protected void handleCommandImpl() {
+        if(commandName.get() == null) {
             infoCmds();
-        } else if ((cmd = CommandManager.getCommand(args[0])) != null) {
-//            Command cmd = CommandManager.getCommand(args[0]);
-            cmd.info(cmd.getDesc());
-//            info(CommandManager.getCommand(args[0]).getDesc());
-        } else {
-            infoCmds();
+            return;
         }
-        return true;
+
+        Command command = CommandManager.getCommand(commandName.get());
+
+        if(command == null) {
+            info("No command exists with that name");
+            return;
+        }
+
+        info(command.getDesc());
     }
 }

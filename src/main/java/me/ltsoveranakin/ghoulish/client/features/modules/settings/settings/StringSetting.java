@@ -3,6 +3,8 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
@@ -30,7 +32,7 @@ public class StringSetting extends Setting<String> {
     }
 
     @Override
-    public @NotNull String parse(String str) {
-        return str;
+    public @NotNull String parse(String str) throws ParseException {
+        return ParserUtil.STRING_PARSER.parse(str);
     }
 }

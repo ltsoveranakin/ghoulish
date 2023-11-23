@@ -3,6 +3,8 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
@@ -30,9 +32,8 @@ public class BoolSetting extends Setting<Boolean> {
     }
 
     @Override
-    public @NotNull Boolean parse(String str) throws Exception {
-        if (!str.equals("true") && !str.equals("false")) throw new SettingParseException(this, str);
-        return Boolean.parseBoolean(str);
+    public @NotNull Boolean parse(String str) throws ParseException {
+        return ParserUtil.BOOLEAN_PARSER.parse(str);
     }
 
     @Override

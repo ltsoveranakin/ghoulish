@@ -3,11 +3,11 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.NumSetting;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class LongSetting extends NumSetting<Long> {
     public LongSetting(String name, String desc, Long defVal, Long minVal, Long maxVal, Module mod) {
@@ -15,8 +15,8 @@ public class LongSetting extends NumSetting<Long> {
     }
 
     @Override
-    public @NotNull Long parseNum(String str) throws Exception {
-        return Long.parseLong(str);
+    public @NotNull Long parseNum(String str) throws ParseException {
+        return ParserUtil.LONG_PARSER.parse(str);
     }
 
     @Override

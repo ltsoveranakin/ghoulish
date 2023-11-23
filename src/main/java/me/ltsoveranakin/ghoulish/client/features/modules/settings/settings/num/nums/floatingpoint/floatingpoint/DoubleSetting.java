@@ -4,6 +4,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingTyp
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.floatingpoint.FloatingPointSetting;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.OutOfBoundsParseException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
@@ -16,7 +17,7 @@ public class DoubleSetting extends FloatingPointSetting<Double> {
     }
 
     @Override
-    public @NotNull Double parseNum(String str) {
+    public @NotNull Double parseNum(String str) throws OutOfBoundsParseException {
         return Double.parseDouble(str);
     }
 

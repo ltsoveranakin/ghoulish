@@ -3,6 +3,8 @@ package me.ltsoveranakin.ghoulish.client.features.modules.settings.settings;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
+import me.ltsoveranakin.ghoulish.client.util.parser.ParserUtil;
+import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -53,13 +55,14 @@ public class EnumSetting<T extends Enum<?>> extends Setting<T> {
     }
 
     @Override
-    public @NotNull T parse(String str) throws Exception {
-        for (T e : getEnums()) {
-            if (e.name().equalsIgnoreCase(str)) {
-                return e;
-            }
-        }
-        throw new SettingParseException(this, str);
+    public @NotNull T parse(String str) throws ParseException {
+//        for (T e : getEnums()) {
+//            if (e.name().equalsIgnoreCase(str)) {
+//                return e;
+//            }
+//        }
+
+        return (T) ParserUtil.ENUM_PARSER.parseFromClass(str, get().getClass());
     }
 
     @Override
