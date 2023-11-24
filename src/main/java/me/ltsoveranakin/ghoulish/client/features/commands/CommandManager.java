@@ -1,10 +1,11 @@
 package me.ltsoveranakin.ghoulish.client.features.commands;
 
-import me.ltsoveranakin.ghoulish.client.GhoulishClient;
 import me.ltsoveranakin.ghoulish.client.event.sub.Subscriptions;
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.packet.ISubCPacket;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
+import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.ArgumentParser;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.commands.*;
+import me.ltsoveranakin.ghoulish.client.features.commands.tabcomplete.CommandSuggest;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
 import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import net.minecraft.network.packet.Packet;
@@ -23,6 +24,7 @@ public class CommandManager implements ISubCPacket {
         COMMANDS.sort(Comparator.comparing(Command::getName));
 
         Subscriptions.addSub(new CommandManager());
+        Subscriptions.addSub(new CommandSuggest());
     }
 
     private static void addCommands() {
@@ -51,29 +53,22 @@ public class CommandManager implements ISubCPacket {
 
     @Override
     public void onCPacket(Packet<?> packet, CallbackInfo ci) {
-        if (packet instanceof ChatMessageC2SPacket chat) {
-            String msg = chat.chatMessage().toLowerCase();
-            if (msg.startsWith(GhoulishClient.PREFIX)) {
-                ci.cancel();
-                String[] spl = msg.substring(GhoulishClient.PREFIX.length()).split(" ");
-                String cmdName = spl[0];
-                String[] args = Arrays.copyOfRange(spl, 1, spl.length);
-
-                for (Command cmd : COMMANDS) {
-                    if (cmd.getName().equalsIgnoreCase(cmdName)) {
-                        try {
-                           cmd.commandIn(args);
-                        } catch (ParseException e) {
-                            ChatUtil.info("Failed to handle command " + e.getMessage());
-                            e.printStackTrace();
-                        } catch (InsufficientArgumentException e) {
-
-                        }
-
+        if (packet instanceof ChatMessageC2SPacket chatPacket) {
+            ArgumentParser parsed = ArgumentParser.tryParseArgs(chatPacket.chatMessage());
+            if (parsed != null) {
+                try {
+                    Command command = getCommand(parsed.commandName());
+                    if (command == null) {
+                        ChatUtil.error("Unknown command");
                         return;
                     }
+                    command.commandIn(parsed.arguments());
+                } catch (ParseException e) {
+                    ChatUtil.error("Error parsing command arguments");
+                } catch (InsufficientArgumentException e) {
+                    ChatUtil.error("Insufficient arguments");
                 }
-                ChatUtil.info("Unable to find command " + cmdName);
+                ci.cancel();
             }
         }
     }

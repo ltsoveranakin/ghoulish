@@ -1,11 +1,11 @@
 package me.ltsoveranakin.ghoulish.client.util;
 
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import net.minecraft.entity.Entity;
 
 import java.util.*;
 
-public class EntityUtil implements MCInst {
+public class EntityUtil implements MinecraftInstance {
 
     @SuppressWarnings("unchecked")
     public static <T extends Entity> List<T> findEntities(Class<T> entityClass) {

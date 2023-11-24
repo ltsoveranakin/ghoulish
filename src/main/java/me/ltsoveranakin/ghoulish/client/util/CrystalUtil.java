@@ -1,13 +1,13 @@
 package me.ltsoveranakin.ghoulish.client.util;
 
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
-public class CrystalUtil implements MCInst {
+public class CrystalUtil implements MinecraftInstance {
     public static boolean canPlaceCrystal(Block block) {
         return block.equals(Blocks.OBSIDIAN) || block.equals(Blocks.BEDROCK);
     }

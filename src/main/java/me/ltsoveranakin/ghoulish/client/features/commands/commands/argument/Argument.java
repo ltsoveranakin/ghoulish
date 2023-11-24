@@ -15,9 +15,12 @@ public abstract class Argument<K> extends NamedDesc {
     @NotNull
     protected abstract K parse(String arg) throws ParseException;
 
-
     public void setArg(String argStr) throws ParseException {
         argumentVal = parse(argStr);
+    }
+
+    public String getSuggestion(String currentArgStr) {
+        return null;
     }
 
     public K get() {

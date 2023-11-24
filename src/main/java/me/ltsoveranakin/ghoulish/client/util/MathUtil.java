@@ -1,12 +1,12 @@
 package me.ltsoveranakin.ghoulish.client.util;
 
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.misc.Rot;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
-public class MathUtil implements MCInst {
+public class MathUtil implements MinecraftInstance {
     public static int compareDist(Entity entityA, Entity entityB) {
         return Float.compare(entityA.distanceTo(mc.player), entityB.distanceTo(mc.player));
     }

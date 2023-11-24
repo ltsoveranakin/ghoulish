@@ -6,10 +6,6 @@ import me.ltsoveranakin.ghoulish.client.util.parser.parser.parser.parser.MethodP
 import java.awt.Color;
 
 public class ParserUtil {
-    /**
-     * This parser does nothing, it returns the string without any modification.
-     */
-    public static final MethodParser<String> STRING_PARSER = new MethodParser<>(ParserUtil::passBack);
     public static final MethodParser<Byte> BYTE_PARSER = new MethodParser<>(Byte::parseByte);
     public static final MethodParser<Short> SHORT_PARSER = new MethodParser<>(Short::parseShort);
     public static final MethodParser<Integer> INTEGER_PARSER = new MethodParser<>(Integer::parseInt);
@@ -20,11 +16,6 @@ public class ParserUtil {
     public static final MethodParser<Color> COLOR_PARSER = new MethodParser<>(ParserUtil::parseColor);
 
     public static final EnumParser ENUM_PARSER = new EnumParser();
-
-
-    private static <T> T passBack(T string) {
-        return string;
-    }
 
     private static Color parseColor(String string) {
         String[] spl = string.split(",");

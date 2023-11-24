@@ -1,8 +1,8 @@
 package me.ltsoveranakin.ghoulish.client.util;
 
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 
-public class WindowUtil implements MCInst {
+public class WindowUtil implements MinecraftInstance {
     public static int getWidth() {
         return mc.getWindow().getScaledWidth();
     }

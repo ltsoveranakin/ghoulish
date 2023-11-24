@@ -5,11 +5,11 @@ import net.minecraft.client.gui.DrawContext;
 
 import java.awt.Color;
 
-public class RenderUtil2d implements MCInst {
+public class RenderUtil2d implements MinecraftInstance {
     public static final int FONT_HEIGHT = mc.textRenderer.fontHeight;
 
     public static int measureText(String text) {
-        if(mc.textRenderer == null) return 50;
+        if (mc.textRenderer == null) return 50;
         return mc.textRenderer.getWidth(text);
     }
 

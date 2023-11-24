@@ -14,7 +14,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.n
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.range.AbstractRangeSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.range.range.RangeFloatSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.range.range.RangeIntSetting;
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.misc.named.NamedDesc;
 import me.ltsoveranakin.ghoulish.client.util.TextUtil;
 import net.minecraft.text.Text;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Range;
 import java.awt.Color;
 import java.util.*;
 
-public class Module extends NamedDesc implements MCInst, IDispatchable {
+public class Module extends NamedDesc implements MinecraftInstance, IDispatchable {
     private final List<Setting<?>> settings = new ArrayList<>();
     private final Map<String, SettingGroup> groups = new LinkedHashMap<>();
 
@@ -92,17 +92,22 @@ public class Module extends NamedDesc implements MCInst, IDispatchable {
         onEnable();
     }
 
-    public void onDisable() {}
-    public void onEnable() {}
-    public void onPostInit() {}
+    public void onDisable() {
+    }
+
+    public void onEnable() {
+    }
+
+    public void onPostInit() {
+    }
 
     protected void info(String txt) {
         info(Text.literal(txt));
     }
 
     public final void postInit() {
-        for(Setting<?> setting : settings) {
-            if(setting.getGroup() == null) {
+        for (Setting<?> setting : settings) {
+            if (setting.getGroup() == null) {
                 defaultLabel.register(setting);
             }
         }
@@ -114,7 +119,7 @@ public class Module extends NamedDesc implements MCInst, IDispatchable {
     }
 
     private <T extends Setting<?>> T addSetting(T setting) {
-        if(setting instanceof LabelSetting) {
+        if (setting instanceof LabelSetting) {
             throw new RuntimeException("Cannot add label setting to module");
         }
 

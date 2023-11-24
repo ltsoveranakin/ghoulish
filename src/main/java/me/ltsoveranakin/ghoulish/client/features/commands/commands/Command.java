@@ -6,6 +6,7 @@ import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.argu
 import me.ltsoveranakin.ghoulish.client.misc.named.NamedDesc;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
 import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +22,25 @@ public abstract class Command extends NamedDesc {
         ChatUtil.info(getName() + " : " + msg);
     }
 
-    public String tabComplete(String[] strArgs) {
-        StringBuilder sb = new StringBuilder();
-        for (Argument<?> argument : arguments) {
-
-            sb.append(argument.getName()).append(" ");
+    @Nullable
+    public String getSuggestion(String[] strArgs) {
+        if (strArgs.length == 0 || strArgs.length > arguments.size()) {
+            return null;
         }
 
-        return sb.toString();
+        try {
+            for (int i = 0; i < strArgs.length - 1; i++) {
+                Argument<?> arg = arguments.get(i);
+                arg.setArg(strArgs[i]);
+            }
+        } catch (ParseException e) {
+            return null;
+        }
+
+        String finalArgument = strArgs[strArgs.length - 1];
+        Argument<?> argument = arguments.get(strArgs.length - 1);
+
+        return argument.getSuggestion(finalArgument);
     }
 
     public final void commandIn(String[] stringArgs) throws ParseException, InsufficientArgumentException {

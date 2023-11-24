@@ -2,6 +2,6 @@ package me.ltsoveranakin.ghoulish.client.misc;
 
 import net.minecraft.client.MinecraftClient;
 
-public interface MCInst {
+public interface MinecraftInstance {
     MinecraftClient mc = MinecraftClient.getInstance();
 }

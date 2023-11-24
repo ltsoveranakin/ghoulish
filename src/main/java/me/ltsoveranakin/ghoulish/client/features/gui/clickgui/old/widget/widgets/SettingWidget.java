@@ -9,13 +9,13 @@ import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.*;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.NumSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.floatingpoint.FloatingPointSetting;
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.misc.MouseData;
 import me.ltsoveranakin.ghoulish.client.util.KeyUtil;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import net.minecraft.client.gui.DrawContext;
 
-public class SettingWidget extends GuiWidget<SettingWidget> implements MCInst {
+public class SettingWidget extends GuiWidget<SettingWidget> implements MinecraftInstance {
     private final Setting<?> setting;
     private final GuiWidget<SettingWidget> parent;
     boolean doSetNum;

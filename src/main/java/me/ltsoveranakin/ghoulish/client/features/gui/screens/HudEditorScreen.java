@@ -4,7 +4,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.ModuleManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.AbstractHudModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.HudEditorModule;
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import me.ltsoveranakin.ghoulish.client.util.WindowUtil;
 import net.minecraft.client.gui.DrawContext;
@@ -12,7 +12,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-public class HudEditorScreen extends Screen implements MCInst {
+public class HudEditorScreen extends Screen implements MinecraftInstance {
     private final HudEditorModule hudEditor = ModuleManager.getModule(HudEditorModule.class);
     private @Nullable AbstractHudModule draggingModule = null;
     private int dragX;
