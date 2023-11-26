@@ -13,7 +13,7 @@ public class StorageHandler {
 
     public static void saveConfig() {
         try {
-            ConfigFile.CURRENT_CONFIG.save();
+            ConfigFile.CURRENT_CONFIG.write();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -21,7 +21,7 @@ public class StorageHandler {
 
     public static void saveStorageData() {
         try {
-            STORAGE_DATA.save();
+            STORAGE_DATA.write();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -30,7 +30,7 @@ public class StorageHandler {
     public static void init() {
         GHOULISH_CONFIG_PATH.mkdirs();
         try {
-            STORAGE_DATA.load();
+            STORAGE_DATA.read();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -48,12 +48,12 @@ public class StorageHandler {
      * [ordinal(byte), version(byte)]
      */
 
-    public static void writeHeader(DataOutputStream dos, StorageType storageType) throws Exception {
+    public static void writeHeader(DataOutputStream dos, StorageType storageType) throws IOException {
         dos.writeByte(storageType.ordinal());
         dos.writeByte(storageType.getVers());
     }
 
-    public static FileHeader readHeader(DataInputStream dis) throws Exception {
+    public static FileHeader readHeader(DataInputStream dis) throws IOException {
         return new FileHeader(StorageType.values()[dis.readByte()], dis.readByte());
     }
 }

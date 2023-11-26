@@ -1,7 +1,7 @@
 package me.ltsoveranakin.ghoulish.client.storage;
 
-import me.ltsoveranakin.ghoulish.client.interfaces.state.Loadable;
-import me.ltsoveranakin.ghoulish.client.interfaces.state.Saveable;
+import me.ltsoveranakin.ghoulish.client.interfaces.state.Readable;
+import me.ltsoveranakin.ghoulish.client.interfaces.state.Writeable;
 import me.ltsoveranakin.ghoulish.client.storage.config.ConfigFile;
 
 import java.io.*;
@@ -10,7 +10,7 @@ import java.io.*;
  * Helper class that holds data for the client such as the current config being used
  */
 
-public class StorageData implements Saveable, Loadable {
+public class StorageData implements Writeable, Readable {
     public String currentConfig = "default";
 
     /**
@@ -20,9 +20,9 @@ public class StorageData implements Saveable, Loadable {
      */
 
     @Override
-    public void load() throws Exception {
+    public void read() throws Exception {
         if (StorageHandler.GHOULISH_DATA_FILE.createNewFile()) {
-            save();
+            write();
         }
 
         FileInputStream fis = new FileInputStream(StorageHandler.GHOULISH_DATA_FILE);
@@ -43,7 +43,7 @@ public class StorageData implements Saveable, Loadable {
     }
 
     @Override
-    public void save() throws Exception {
+    public void write() throws Exception {
         FileOutputStream fos = new FileOutputStream(StorageHandler.GHOULISH_DATA_FILE);
         DataOutputStream dos = new DataOutputStream(fos);
 

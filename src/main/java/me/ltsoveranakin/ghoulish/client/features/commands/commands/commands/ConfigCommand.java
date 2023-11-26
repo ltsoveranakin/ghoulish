@@ -13,6 +13,7 @@ import java.net.URL;
 public class ConfigCommand extends Command {
     private final EnumArgument<ConfigAction> configAction = addEnum("config action", "the action to perform", ConfigAction.class);
     private final StringArgument configName = addStr("config name", "the name of the config to set or save").optional();
+
     public ConfigCommand() {
         super("config", "manages config");
     }
@@ -47,14 +48,14 @@ public class ConfigCommand extends Command {
         ConfigFile tmpConfig = new ConfigFile(configName.get());
 
         try {
-            tmpConfig.save();
+            tmpConfig.write();
         } catch (Exception e) {
             e.printStackTrace();
             info("failed to save config");
             return;
         }
 
-        info("saved new config to " + tmpConfig.getFile());
+        info("saved new config to " + tmpConfig.getSaveFile());
     }
 
     private void listAction() {
@@ -70,7 +71,7 @@ public class ConfigCommand extends Command {
     }
 
     private void listFromDir(File dir, StringBuilder sb) {
-        for(File file: dir.listFiles()) {
+        for (File file : dir.listFiles()) {
             sb
                     .append("\n")
                     .append(file.getName())
