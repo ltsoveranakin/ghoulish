@@ -36,6 +36,7 @@ public class CommandManager implements ISubCPacket {
         add(new GetCommand());
         add(new OfflineAuthCommand());
         add(new ConfigCommand());
+        add(new PrefixCommand());
     }
 
     private static void add(Command cmd) {
@@ -56,6 +57,7 @@ public class CommandManager implements ISubCPacket {
         if (packet instanceof ChatMessageC2SPacket chatPacket) {
             ArgumentParser parsed = ArgumentParser.tryParseArgs(chatPacket.chatMessage());
             if (parsed != null) {
+                ci.cancel();
                 try {
                     Command command = getCommand(parsed.commandName());
                     if (command == null) {
@@ -68,7 +70,6 @@ public class CommandManager implements ISubCPacket {
                 } catch (InsufficientArgumentException e) {
                     ChatUtil.error("Insufficient arguments");
                 }
-                ci.cancel();
             }
         }
     }

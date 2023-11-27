@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Command extends NamedDesc {
+    public static String PREFIX = "$";
+
     private final List<Argument<?>> arguments = new ArrayList<>();
 
     public Command(String name, String desc) {
