@@ -3,7 +3,6 @@ package me.ltsoveranakin.ghoulish.client.storage.config.config;
 import me.ltsoveranakin.ghoulish.client.features.modules.Category;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.interfaces.state.ManagedSerializableData;
-import me.ltsoveranakin.ghoulish.client.interfaces.state.SerializableData;
 import me.ltsoveranakin.ghoulish.client.misc.Pos;
 
 import java.io.*;
@@ -12,24 +11,23 @@ import java.util.Map;
 
 /**
  * Bytes: [...categoryOrdinal(byte), ...xPosition(short), ...yPosition(short), ...expanded(bool), ...moduleCount(byte), ...modules(ConfigModule[])]
+ * [0, 500, 500, true, 10, [10]]
  */
 
 public class ConfigCategory implements ManagedSerializableData {
     private Category category;
-    private final Map<Module, ConfigModule> configMods = new HashMap<>();
+    private final Map<Module, ConfigModule> configModules = new HashMap<>();
     private int x;
     private int y;
     private boolean expanded = false;
 
     public ConfigCategory() {
+        this(0, 0);
     }
 
-    public ConfigCategory(int x, int y, Category category) {
-        this();
-
+    public ConfigCategory(int x, int y) {
         this.x = x;
         this.y = y;
-        this.category = category;
     }
 
     public void setPos(Pos pos) {
@@ -69,15 +67,19 @@ public class ConfigCategory implements ManagedSerializableData {
         return category;
     }
 
-    public Map<Module, ConfigModule> getConfigMods() {
-        return configMods;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Map<Module, ConfigModule> getConfigModules() {
+        return configModules;
     }
 
     @Override
     public String toString() {
         return "ConfigCategory{" +
                 "category=" + category +
-                ", configMods=" + configMods +
+                ", configMods=" + configModules +
                 ", x=" + x +
                 ", y=" + y +
                 ", expanded=" + expanded +
@@ -86,14 +88,15 @@ public class ConfigCategory implements ManagedSerializableData {
 
     @Override
     public void writeData(DataOutputStream dos) throws IOException {
+        System.out.println("WRITE CATEGORY, MODULES SIZE: " + configModules.size());
         dos.writeByte(category.ordinal());
         dos.writeShort(x);
         dos.writeShort(y);
         dos.writeBoolean(expanded);
-        dos.writeByte(configMods.size());
+        dos.writeByte(configModules.size());
 
-        for (ConfigModule cfgMod : configMods.values()) {
-            cfgMod.write(dos);
+        for (ConfigModule cfgMod : configModules.values()) {
+            cfgMod.writeData(dos);
         }
     }
 
@@ -108,8 +111,26 @@ public class ConfigCategory implements ManagedSerializableData {
         category = Category.values()[categoryOrdinal];
 
         for (int i = 0; i < moduleCount; i++) {
-            ConfigModule cfgMod = new ConfigModule(dis);
-            configMods.put(cfgMod.getModule(), cfgMod);
+            ConfigModule cfgMod = new ConfigModule();
+            cfgMod.readData(dis);
+            configModules.put(cfgMod.getModule(), cfgMod);
         }
+    }
+
+    @Override
+    public void init() {
+        System.out.println("INIT CATEGORY: " + category + " MODULE  AMOUNT: " + category.getModules().size());
+        for (Module module : category.getModules()) {
+            ConfigModule configModule = new ConfigModule();
+            configModule.setModule(module);
+            configModule.setDefaultDataImpl();
+            configModules.put(module, configModule);
+            configModule.init();
+        }
+    }
+
+    @Override
+    public void setDefaultDataImpl() {
+        // no default data
     }
 }

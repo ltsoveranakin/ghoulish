@@ -5,9 +5,7 @@ import me.ltsoveranakin.ghoulish.client.features.commands.CommandManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.ModuleManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.storage.StorageHandler;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.fabricmc.api.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

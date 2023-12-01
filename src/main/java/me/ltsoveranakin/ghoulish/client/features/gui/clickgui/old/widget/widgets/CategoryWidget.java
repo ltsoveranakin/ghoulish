@@ -16,7 +16,7 @@ public class CategoryWidget extends GuiWidget<ModuleWidget> implements Minecraft
     public CategoryWidget(Category category) {
         super(category.name());
         this.category = category;
-        cfgCat = ConfigFile.CURRENT_CONFIG.getCats().get(category);
+        cfgCat = ConfigFile.CURRENT_CONFIG.getConfigCategories().get(category);
 //        System.out.println("CFGCAT " + cfgCat.getName() + " xy " + cfgCat.getX() + " " + cfgCat.getY());
 
         boolean exp = cfgCat.isExpanded();

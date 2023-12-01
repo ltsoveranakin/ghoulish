@@ -7,4 +7,7 @@ public interface ManagedSerializableData {
 
     void readData(DataInputStream dis) throws IOException;
 
+    void setDefaultDataImpl();
+
+    void init();
 }

@@ -11,11 +11,16 @@ public abstract class SaveData implements SerializableData, ManagedSerializableD
 
     public SaveData(File saveFile) {
         this.saveFile = saveFile;
+        init();
+        if (!createIfAbsent()) {
+            read();
+        }
     }
 
-    public void write() {
+    @Override
+    public final void write() {
         try {
-            BufferOutputStream fos = new BufferOutputStream();
+            FileOutputStream fos = new FileOutputStream(saveFile);
             DataOutputStream dos = new DataOutputStream(fos);
 
             try {
@@ -30,27 +35,47 @@ public abstract class SaveData implements SerializableData, ManagedSerializableD
         }
     }
 
-    public void read() {
+    /**
+     * Returns true if the file was created, otherwise false
+     *
+     * @return
+     */
+
+    private boolean createIfAbsent() {
+        System.out.println("Create if absent call");
         try {
-            if (saveFile.createNewFile()) {
+            if (saveFile.getParentFile().mkdirs() || saveFile.createNewFile()) {
+                System.out.println("it is absent");
                 setDefaultData();
                 write();
-                return;
+                return true;
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public final void read() {
+        try {
+            createIfAbsent();
 
             FileInputStream fis = new FileInputStream(saveFile);
             DataInputStream dis = new DataInputStream(fis);
 
             try {
                 readData(dis);
-            } catch (IOException e2) {
+            } catch (Exception e2) {
+
                 String newPath = saveFile.getPath() + "." + System.currentTimeMillis() + ".invalid";
                 File invalidConfigFile = new File(newPath);
+                invalidConfigFile.createNewFile();
 
                 try {
                     Files.copy(saveFile.toPath(), invalidConfigFile.toPath());
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    throw new RuntimeException(e1);
                 }
 
                 setDefaultData();
@@ -61,12 +86,19 @@ public abstract class SaveData implements SerializableData, ManagedSerializableD
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        postSetData();
     }
 
-    protected abstract void setDefaultData();
-
+    public void setDefaultData() {
+        setDefaultDataImpl();
+        postSetData();
+    }
 
     public File getSaveFile() {
         return saveFile;
+    }
+
+    protected void postSetData() {
     }
 }

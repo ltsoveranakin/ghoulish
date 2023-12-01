@@ -9,29 +9,22 @@ public class StorageHandler {
     public static final File GHOULISH_CONFIG_PATH = new File(GHOULISH_PATH.getPath() + "/config/");
     public static final File GHOULISH_DATA_FILE = new File(GHOULISH_PATH.getPath() + "/ghoulish.glsh");
 
-    public static final StorageData STORAGE_DATA = new StorageData();
+    public static final GhoulishSaveData STORAGE_DATA = new GhoulishSaveData();
+
+    public static void init() {
+
+    }
 
     public static void saveConfig() {
-        try {
-            ConfigFile.CURRENT_CONFIG.write();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (ConfigFile.CURRENT_CONFIG == null) {
+            loadNewConfig("default");
         }
+        ConfigFile.CURRENT_CONFIG.write();
     }
 
     public static void saveStorageData() {
         try {
             STORAGE_DATA.write();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void init() {
-        GHOULISH_CONFIG_PATH.mkdirs();
-        try {
-            STORAGE_DATA.read();
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

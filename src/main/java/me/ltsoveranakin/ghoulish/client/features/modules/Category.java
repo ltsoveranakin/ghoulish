@@ -13,7 +13,7 @@ public enum Category {
     MISC,
     HUD;
 
-    // ArrayList for TabGui
+    // ArrayList for fast access with TabGui
     private final List<Module> modules = new ArrayList<>(); // updated in ModuleManager.java
 
     public static int getLongest() {
