@@ -65,9 +65,6 @@ public abstract class Command extends NamedDesc {
     protected abstract void handleCommandImpl();
 
     private <K extends Argument<?>> K addArgument(K argument) {
-        if (!arguments.isEmpty() && arguments.get(arguments.size() - 1).isOptional() && !argument.isOptional()) {
-            throw new RuntimeException("Required argument registered after optional argument.");
-        }
         arguments.add(argument);
         return argument;
     }
@@ -92,4 +89,16 @@ public abstract class Command extends NamedDesc {
         return addArgument(new EnumArgument<>(name, desc, enumClass));
     }
 
+    public List<Argument<?>> getArguments() {
+        return arguments;
+    }
+
+    public Argument<?> getArgument(String name) {
+        for (Argument<?> argument : arguments) {
+            if (argument.getName().equals(name)) {
+                return argument;
+            }
+        }
+        return null;
+    }
 }

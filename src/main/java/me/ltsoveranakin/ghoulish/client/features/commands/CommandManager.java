@@ -3,6 +3,7 @@ package me.ltsoveranakin.ghoulish.client.features.commands;
 import me.ltsoveranakin.ghoulish.client.event.sub.Subscriptions;
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.packet.ISubCPacket;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
+import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.Argument;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.ArgumentParser;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.commands.*;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
@@ -38,6 +39,16 @@ public class CommandManager implements ISubCPacket {
     }
 
     private static void add(Command cmd) {
+        if (cmd.getArguments().size() < 2) {
+            List<Argument<?>> arguments = cmd.getArguments();
+            for (int i = 0; i < arguments.size(); i++) {
+                if (i == 0) continue;
+                if (arguments.get(i - 1).isOptional() && !arguments.get(i).isOptional()) {
+                    throw new RuntimeException("Required argument registered after optional argument.");
+                }
+            }
+        }
+
         COMMANDS.add(cmd);
     }
 
