@@ -1,5 +1,6 @@
 package me.ltsoveranakin.ghoulish.client.storage;
 
+import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
 import me.ltsoveranakin.ghoulish.client.interfaces.state.Loadable;
 import me.ltsoveranakin.ghoulish.client.interfaces.state.Saveable;
 import me.ltsoveranakin.ghoulish.client.storage.config.ConfigFile;
@@ -10,7 +11,7 @@ import java.io.*;
  * Helper class that holds data for the client such as the current config being used
  */
 
-public class StorageData implements Saveable, Loadable {
+public class ClientData implements Saveable, Loadable {
     public String currentConfig = "default";
 
     /**
@@ -30,6 +31,8 @@ public class StorageData implements Saveable, Loadable {
 
         StorageHandler.readHeader(dis);
         String curConf = dis.readUTF();
+        String prefix = dis.readUTF();
+
         System.out.println("CURRENT CONFIG: " + curConf);
 
         ConfigFile.CURRENT_CONFIG = new ConfigFile(curConf);
@@ -37,6 +40,8 @@ public class StorageData implements Saveable, Loadable {
             ConfigFile.CURRENT_CONFIG = new ConfigFile(curConf);
             ConfigFile.CURRENT_CONFIG.delete();
         }
+
+        Command.PREFIX = prefix;
 
         dis.close(); // auto closes the FileInputStream
         System.out.println("CLOSED DIS");
@@ -49,6 +54,7 @@ public class StorageData implements Saveable, Loadable {
 
         StorageHandler.writeHeader(dos, StorageType.STORAGE_DATA);
         dos.writeUTF(currentConfig);
+        dos.writeUTF(Command.PREFIX);
 
         dos.flush();
         dos.close();

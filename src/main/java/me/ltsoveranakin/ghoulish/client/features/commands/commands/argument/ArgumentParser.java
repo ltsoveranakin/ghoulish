@@ -1,6 +1,6 @@
 package me.ltsoveranakin.ghoulish.client.features.commands.commands.argument;
 
-import me.ltsoveranakin.ghoulish.client.GhoulishClient;
+import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -11,8 +11,8 @@ public record ArgumentParser(String commandName, String[] arguments) {
     public static ArgumentParser tryParseArgs(String message) {
         String msg = message.toLowerCase();
 
-        if (msg.startsWith(GhoulishClient.PREFIX)) {
-            String[] spl = msg.substring(GhoulishClient.PREFIX.length()).split(" ");
+        if (msg.startsWith(Command.PREFIX)) {
+            String[] spl = msg.substring(Command.PREFIX.length()).split(" ");
             if (spl.length == 0) return null;
             String commandName = spl[0];
             String[] arguments = Arrays.copyOfRange(spl, 1, spl.length);

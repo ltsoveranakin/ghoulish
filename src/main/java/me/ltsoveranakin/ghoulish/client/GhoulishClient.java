@@ -16,7 +16,6 @@ public class GhoulishClient implements ClientModInitializer {
     public static final Logger LOG = LogManager.getLogger("GHOULISH");
     public static final String VERS = "0.0.0";
 
-    public static String PREFIX = "$";
     public static boolean loaded = false;
 
 

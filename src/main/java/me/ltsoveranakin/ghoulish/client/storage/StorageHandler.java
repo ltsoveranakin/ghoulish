@@ -9,7 +9,7 @@ public class StorageHandler {
     public static final File GHOULISH_CONFIG_PATH = new File(GHOULISH_PATH.getPath() + "/config/");
     public static final File GHOULISH_DATA_FILE = new File(GHOULISH_PATH.getPath() + "/ghoulish.glsh");
 
-    public static final StorageData STORAGE_DATA = new StorageData();
+    public static final ClientData CLIENT_DATA = new ClientData();
 
     public static void saveConfig() {
         try {
@@ -19,9 +19,9 @@ public class StorageHandler {
         }
     }
 
-    public static void saveStorageData() {
+    public static void saveClientData() {
         try {
-            STORAGE_DATA.save();
+            CLIENT_DATA.save();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -30,7 +30,7 @@ public class StorageHandler {
     public static void init() {
         GHOULISH_CONFIG_PATH.mkdirs();
         try {
-            STORAGE_DATA.load();
+            CLIENT_DATA.load();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -38,8 +38,8 @@ public class StorageHandler {
     }
 
     public static void loadNewConfig(String name) {
-        StorageHandler.STORAGE_DATA.currentConfig = name;
-        StorageHandler.saveStorageData();
+        StorageHandler.CLIENT_DATA.currentConfig = name;
+        StorageHandler.saveClientData();
 
         ConfigFile.CURRENT_CONFIG = new ConfigFile(name);
     }
