@@ -1,6 +1,5 @@
 package me.ltsoveranakin.ghoulish.client.features.commands.commands.commands;
 
-import me.ltsoveranakin.ghoulish.client.GhoulishClient;
 import me.ltsoveranakin.ghoulish.client.features.commands.CommandManager;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.Argument;
@@ -58,7 +57,7 @@ public class HelpCommand extends Command {
         if (argumentName.get() == null) {
             info(command.getDesc());
             StringBuilder argFmt = new StringBuilder();
-            argFmt.append(GhoulishClient.PREFIX)
+            argFmt.append(Command.PREFIX)
                     .append(command.getName());
 
             for (Argument<?> argument : command.getArguments()) {
