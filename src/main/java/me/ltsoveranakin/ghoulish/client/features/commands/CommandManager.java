@@ -5,7 +5,6 @@ import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.packet.ISubCPacket;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.ArgumentParser;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.commands.*;
-import me.ltsoveranakin.ghoulish.client.features.commands.tabcomplete.CommandSuggest;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
 import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import net.minecraft.network.packet.Packet;
@@ -24,7 +23,7 @@ public class CommandManager implements ISubCPacket {
         COMMANDS.sort(Comparator.comparing(Command::getName));
 
         Subscriptions.addSub(new CommandManager());
-        Subscriptions.addSub(new CommandSuggest());
+        Subscriptions.addSub(new CommandSuggestor());
     }
 
     private static void addCommands() {

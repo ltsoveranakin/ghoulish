@@ -24,8 +24,8 @@ public class GuiModule extends Module implements ISubKey, ISubTick {
     public final RGBASettingCollection GUI_ENABLED = addCol("gui enabled", "color of enabled modules/settings", new Color(20, 255, 0, 255));
     public final RGBASettingCollection GUI_LABEL_COLOR = addCol("gui label", "color of labels in the clickgui", new Color(154, 0, 0, 255));
 
-    public final ByteSetting SIDE_BUFFER = addByte("sidebuffer", "buffer (in pixels) from the edge that text should be", 4, 1, 10);
-    public final LongSetting DESC_DELAY = addLong("descdelay", "delay (in ms) on when to begin rendering a description", 1000, 0, 5000);
+    public final ByteSetting SIDE_BUFFER = addByte("side buffer", "buffer (in pixels) from the edge that text should be", 4, 1, 10);
+    public final LongSetting DESC_DELAY = addLong("description delay", "delay (in ms) on when to begin rendering a description", 1000, 0, 5000);
 
     private final EnumSetting<GuiType> guiType = addEnum("guitype", "type of clickgui that is displayed", GuiType.OLD);
     private AbstractClickGui clickGuiScreen;
