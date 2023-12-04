@@ -1,24 +1,22 @@
 package me.ltsoveranakin.ghoulish.client.features.commands;
 
-import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.ISubHudRender;
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.ISubKey;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.ArgumentParser;
 import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.mixin.AccessorChatScreen;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
-public class CommandSuggestor implements ISubHudRender, ISubKey, MinecraftInstance {
+public class CommandSuggestor implements ISubKey, MinecraftInstance {
     private String suggestionSubStr;
     @Nullable
     private TextFieldWidget chatTextField;
 
-    @Override
-    public void onRender(DrawContext ctx, float tickDelta, boolean isGui) {
+
+    public void trySetSuggestion() {
         chatTextField = null;
 
         if (mc.currentScreen instanceof ChatScreen) {
@@ -58,6 +56,8 @@ public class CommandSuggestor implements ISubHudRender, ISubKey, MinecraftInstan
 
     @Override
     public void onKey(long window, int key, int scancode, int action, int modifier) {
+        trySetSuggestion();
+        
         if (chatTextField == null || suggestionSubStr == null || action != GLFW.GLFW_PRESS || key != GLFW.GLFW_KEY_TAB)
             return;
         chatTextField.setText(chatTextField.getText() + suggestionSubStr);
