@@ -15,6 +15,8 @@ public abstract class Argument<K> extends NamedDesc {
     @NotNull
     protected abstract K parse(String arg) throws ParseException;
 
+    protected abstract String getTypeName();
+
     public void setArg(String argStr) throws ParseException {
         argumentVal = parse(argStr);
     }
@@ -38,5 +40,11 @@ public abstract class Argument<K> extends NamedDesc {
 
     public void reset() {
         argumentVal = null;
+    }
+
+    public void help() {
+        info(getName());
+        info(getDesc());
+        info("Type: " + getTypeName());
     }
 }

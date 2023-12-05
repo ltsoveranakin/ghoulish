@@ -76,8 +76,7 @@ public class HelpCommand extends Command {
                 return;
             }
 
-            info(argument.getName());
-            info(argument.getDesc());
+            argument.help();
         }
     }
 }

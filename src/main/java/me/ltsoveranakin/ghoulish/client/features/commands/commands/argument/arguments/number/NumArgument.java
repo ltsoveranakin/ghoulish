@@ -24,6 +24,11 @@ public class NumArgument<T extends Number & Comparable<T>> extends Argument<T> {
         return parser.parse(arg);
     }
 
+    @Override
+    protected String getTypeName() {
+        return "number";
+    }
+
     public T getMin() {
         return min;
     }

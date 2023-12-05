@@ -28,6 +28,11 @@ public class StringArgument extends Argument<String> {
     }
 
     @Override
+    protected String getTypeName() {
+        return "string";
+    }
+
+    @Override
     public StringArgument optional() {
         return (StringArgument) super.optional();
     }
