@@ -3,6 +3,7 @@ package me.ltsoveranakin.ghoulish.client.features.commands;
 import me.ltsoveranakin.ghoulish.client.event.sub.Subscriptions;
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.packet.ISubCPacket;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
+import me.ltsoveranakin.ghoulish.client.features.commands.commands.suggest.CommandSuggestor;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.ArgumentParser;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.commands.*;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
