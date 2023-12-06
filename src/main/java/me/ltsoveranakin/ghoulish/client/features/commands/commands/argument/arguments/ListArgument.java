@@ -4,7 +4,7 @@ import me.ltsoveranakin.ghoulish.client.features.commands.commands.argument.Argu
 import me.ltsoveranakin.ghoulish.client.util.parser.parser.exception.ParseException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * An argument that has a specified number of values it can choose from. Like an enum, but uses strings for a dynamic approach. Differs from a "joint" argument in that the proceeding arguments are not affected by the ListArgument's value.
@@ -43,6 +43,9 @@ public class ListArgument extends Argument<String> {
     @Override
     protected String getTypeName() {
         List<String> values = getValues.get();
+        if (values == null) {
+            return "list( <values not known> )";
+        }
         StringBuilder valuesSb = new StringBuilder();
         for (int i = 0; i < values.size(); i++) {
             if (i != 0) valuesSb.append(", ");

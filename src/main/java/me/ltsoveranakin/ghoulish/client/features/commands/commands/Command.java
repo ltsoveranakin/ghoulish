@@ -48,7 +48,14 @@ public abstract class Command extends NamedDesc {
     public final void commandIn(String[] stringArgs) throws ParseException, InsufficientArgumentException {
         for (int i = 0; i < stringArgs.length; i++) {
             Argument<?> arg = arguments.get(i);
-            arg.setArg(stringArgs[i]);
+            try {
+                arg.setArg(stringArgs[i]);
+            } catch (ParseException e) {
+                error("Invalid argument at `" + arg.getName() + "`");
+                error("Try using `" + Command.PREFIX + "help " + getName() + " " + arg.getCommandName() + "`");
+                error("Or `" + Command.PREFIX + "help " + getName() + "` for an overview");
+                throw e;
+            }
         }
 
         for (Argument<?> arg : arguments) {

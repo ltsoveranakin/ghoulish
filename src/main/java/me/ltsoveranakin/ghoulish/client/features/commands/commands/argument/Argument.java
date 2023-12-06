@@ -7,9 +7,11 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Argument<K> extends NamedDesc {
     private K argumentVal;
     private boolean optional = false;
+    private final String commandName;
 
     public Argument(String name, String desc) {
         super(name, desc);
+        commandName = name.replaceAll(" ", "-");
     }
 
     @NotNull
@@ -36,6 +38,10 @@ public abstract class Argument<K> extends NamedDesc {
 
     public boolean isOptional() {
         return optional;
+    }
+
+    public String getCommandName() {
+        return commandName;
     }
 
     public void reset() {

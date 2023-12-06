@@ -66,9 +66,11 @@ public class CommandManager implements ISubCPacket {
                     }
                     command.commandIn(parsed.arguments());
                 } catch (ParseException e) {
-                    ChatUtil.error("Error parsing command arguments");
+                    e.printStackTrace();
+//                    ChatUtil.error("Error parsing command arguments");
                 } catch (InsufficientArgumentException e) {
-                    ChatUtil.error("Insufficient arguments");
+                    e.printStackTrace();
+//                    ChatUtil.error("Insufficient arguments");
                 }
             }
         }

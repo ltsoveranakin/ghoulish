@@ -35,7 +35,7 @@ public class CommandSuggestor implements ISubHudRender, ISubKey, MinecraftInstan
 
             if (parsed.arguments().length == 0) {
                 for (Command command : CommandManager.COMMANDS) {
-                    if (!command.getName().isEmpty() && command.getName().startsWith(commandName)) {
+                    if (command.getName().startsWith(commandName)) {
                         suggestionSubStr = command.getName().substring(commandName.length());
                         chatTextField.setSuggestion(suggestionSubStr);
                         return;
