@@ -14,7 +14,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.A
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.Eagle;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.autoclicker.autoclicker.LeftClicker;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.autoclicker.autoclicker.RightClicker;
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.storage.StorageHandler;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
 import me.ltsoveranakin.ghoulish.client.util.KeyUtil;
@@ -24,7 +24,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.*;
 
 
-public class ModuleManager implements ISubKey, MCInst {
+public class ModuleManager implements ISubKey, MinecraftInstance {
     public static final List<Module> MODULES = new ArrayList<>();
     public static final List<String> MODULE_NAMES = new ArrayList<>();
 

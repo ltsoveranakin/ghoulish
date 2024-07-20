@@ -9,7 +9,7 @@ import me.ltsoveranakin.ghoulish.client.storage.config.config.ConfigCategory;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import net.minecraft.client.gui.DrawContext;
 
-public class CategoryWidget extends GuiWidget<ModuleWidget> implements MCInst {
+public class CategoryWidget extends GuiWidget<ModuleWidget> implements MinecraftInstance {
     private final ConfigCategory cfgCat;
     private final Category category;
 

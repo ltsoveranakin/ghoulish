@@ -24,7 +24,7 @@ public class TabGUIModule extends AbstractHudModule implements ISubKey {
     private final BindSetting downBind = addBind("down", "the keybind to select the below selection", GLFW_KEY_DOWN);
 
     private final RGBASettingCollection bGColor = addCol("background", "the background color of the tabgui", new Color(0, 0, 0));
-    private final RGBASettingCollection bGSelected = addCol("background", "the selected background color of the tabgui", new Color(20, 255, 0, 255));
+    private final RGBASettingCollection bGSelected = addCol("background selected", "the selected background color of the tabgui", new Color(20, 255, 0, 255));
     private final RGBASettingCollection bgModuleEnabled = addCol("background module enabled", "the background color of settings which are enabled", new Color(191, 229, 189, 255));
 
     private int categoryIndex = 0;

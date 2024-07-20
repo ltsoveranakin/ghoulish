@@ -1,10 +1,10 @@
 package me.ltsoveranakin.ghoulish.client.util;
 
-import me.ltsoveranakin.ghoulish.client.misc.MCInst;
+import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class InvUtil implements MCInst {
+public class InvUtil implements MinecraftInstance {
 
     public static ItemStack getStack(int slot) {
         return mc.player.getInventory().getStack(slot);
@@ -15,8 +15,8 @@ public class InvUtil implements MCInst {
     }
 
     private static int searchForItem(Item item, int start, int lessThan) {
-        for(int i = start; i < lessThan; i++) {
-            if(getItem(i).equals(item)) {
+        for (int i = start; i < lessThan; i++) {
+            if (getItem(i).equals(item)) {
                 return i;
             }
         }
