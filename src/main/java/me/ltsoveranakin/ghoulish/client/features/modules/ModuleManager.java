@@ -14,6 +14,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.A
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.Eagle;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.autoclicker.autoclicker.LeftClicker;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.autoclicker.autoclicker.RightClicker;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.world.PrinterModule;
 import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.storage.StorageHandler;
 import me.ltsoveranakin.ghoulish.client.util.ChatUtil;
@@ -57,6 +58,7 @@ public class ModuleManager implements ISubKey, MinecraftInstance {
         add(new LeftClicker());
         add(new TabGUIModule());
         add(new PacketListModule());
+        add(new PrinterModule());
     }
 
     private static <T extends Module> void add(T module) {

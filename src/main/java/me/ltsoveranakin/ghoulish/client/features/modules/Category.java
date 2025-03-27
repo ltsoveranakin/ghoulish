@@ -11,6 +11,7 @@ public enum Category {
     COMBAT,
     CLIENT,
     MISC,
+    World,
     HUD;
 
     // ArrayList for TabGui

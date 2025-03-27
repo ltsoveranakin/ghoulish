@@ -10,6 +10,7 @@ import me.ltsoveranakin.ghoulish.client.misc.Box2D;
 import me.ltsoveranakin.ghoulish.client.storage.StorageHandler;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.Color;
@@ -44,7 +45,7 @@ public class TabGUIModule extends AbstractHudModule implements ISubKey {
     }
 
     @Override
-    public void onRenderImpl(DrawContext ctx, float tickDelta, boolean isGui) {
+    public void onRenderImpl(DrawContext ctx, RenderTickCounter tickDelta, boolean isGui) {
         int categoryRenX = getPos().getX();
         int categoryRenY = getPos().getY();
 

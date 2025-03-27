@@ -6,6 +6,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.Category;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.util.BlockUtil;
 import me.ltsoveranakin.ghoulish.client.util.InvUtil;
+import me.ltsoveranakin.ghoulish.client.util.PlayerUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.world.ClientWorld;
@@ -27,7 +28,7 @@ public class AutoTool extends Module implements ISubTick {
             return;
         }
 
-        BlockHitResult result = (BlockHitResult) mc.player.raycast(mc.interactionManager.getReachDistance(), 1, false);
+        BlockHitResult result = (BlockHitResult) mc.player.raycast(PlayerUtil.getBlockReach(), 1, false);
         if (BlockUtil.getBlock(result.getBlockPos()) == Blocks.AIR) {
             return;
         }
@@ -37,7 +38,7 @@ public class AutoTool extends Module implements ISubTick {
         int highest = mc.player.getInventory().selectedSlot;
         float highestVal = InvUtil.mainHanndStack().getMiningSpeedMultiplier(state);
         for (int i = 0; i < 9; i++) {
-            float val = InvUtil.getItem(i).getMiningSpeedMultiplier(InvUtil.getStack(i), state);
+            float val = InvUtil.getItem(i).getMiningSpeed(InvUtil.getStack(i), state);
             if (val > highestVal) {
                 highest = i;
                 highestVal = val;

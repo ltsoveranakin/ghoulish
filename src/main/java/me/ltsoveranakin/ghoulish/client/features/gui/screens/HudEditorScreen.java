@@ -9,6 +9,7 @@ import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import me.ltsoveranakin.ghoulish.client.util.WindowUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,16 +19,20 @@ public class HudEditorScreen extends Screen implements MinecraftInstance {
     private int dragX;
     private int dragY;
 
+    private final RenderTickCounter.Dynamic tickCounter= new RenderTickCounter.Dynamic(20f, System.currentTimeMillis(), (time) -> time);
+
     public HudEditorScreen() {
         super(Text.of("hud_editor"));
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        tickCounter.beginRenderTick(System.currentTimeMillis(), true);
+
         RenderUtil2d.drawBox(context, 0, 0, WindowUtil.getWidth(), WindowUtil.getHeight(), hudEditor.HUD_BG.getColor());
         for (Module mod : ModuleManager.MODULES) {
             if (mod.isEnabled() && mod instanceof AbstractHudModule hudModule) {
-                hudModule.onRender(context, delta, true);
+                hudModule.onRender(context, tickCounter, true);
             }
         }
     }

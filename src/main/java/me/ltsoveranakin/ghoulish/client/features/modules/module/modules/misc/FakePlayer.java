@@ -29,6 +29,6 @@ public class FakePlayer extends Module {
         oPlayer = new OtherClientPlayerEntity(mc.world, new GameProfile(UUID.randomUUID(), "Fake.Player"));
         oPlayer.copyFrom(mc.player);
         oPlayer.setInvulnerable(true);
-        mc.world.addEntity(507189, oPlayer);
+        mc.world.addEntity(oPlayer);
     }
 }

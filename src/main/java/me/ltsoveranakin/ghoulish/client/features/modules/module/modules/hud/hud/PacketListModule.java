@@ -7,6 +7,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.BoolS
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import me.ltsoveranakin.ghoulish.client.util.WindowUtil;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.network.packet.Packet;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -25,7 +26,7 @@ public class PacketListModule extends AbstractHudModule implements ISubCPacket, 
     }
 
     @Override
-    public void onRenderImpl(DrawContext ctx, float tickDelta, boolean isGui) {
+    public void onRenderImpl(DrawContext ctx, RenderTickCounter tickDelta, boolean isGui) {
         int width = WindowUtil.getWidth() / 3;
         int height = WindowUtil.getHeight() / 2;
         packetCount = height / RenderUtil2d.FONT_HEIGHT;
