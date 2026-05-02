@@ -1,8 +1,7 @@
-package me.ltsoveranakin.ghoulish.client.features.gui.screens;
+package me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud;
 
 import me.ltsoveranakin.ghoulish.client.features.modules.ModuleManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
-import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.AbstractHudModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.HudEditorModule;
 import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;

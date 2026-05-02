@@ -37,6 +37,7 @@ public class CommandManager implements ISubCPacket {
         add(new OfflineAuthCommand());
         add(new ConfigCommand());
         add(new PrefixCommand());
+        add(new ConglomerationCommand());
     }
 
     private static void add(Command cmd) {
