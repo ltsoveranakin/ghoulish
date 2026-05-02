@@ -10,6 +10,7 @@ import me.ltsoveranakin.ghoulish.client.mixin.AccessorChatScreen;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.render.RenderTickCounter;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -19,7 +20,7 @@ public class CommandSuggestor implements ISubHudRender, ISubKey, MinecraftInstan
     private TextFieldWidget chatTextField;
 
     @Override
-    public void onRender(DrawContext ctx, float tickDelta, boolean isGui) {
+    public void onRender(DrawContext ctx, RenderTickCounter tickDelta, boolean isGui) {
         chatTextField = null;
 
         if (mc.currentScreen instanceof ChatScreen) {

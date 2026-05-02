@@ -9,6 +9,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.EnumS
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.IntSetting;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 
 import java.awt.Color;
 import java.util.*;
@@ -31,7 +32,7 @@ public class ArrayListModule extends AbstractHudModule {
     }
 
     @Override
-    public void onRenderImpl(DrawContext ctx, float tickDelta, boolean isGui) {
+    public void onRenderImpl(DrawContext ctx, RenderTickCounter tickDelta, boolean isGui) {
         if (firstRen) {
             sort();
             firstRen = false;

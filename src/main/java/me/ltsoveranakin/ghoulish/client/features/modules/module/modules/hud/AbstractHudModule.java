@@ -8,6 +8,7 @@ import me.ltsoveranakin.ghoulish.client.misc.Box2D;
 import me.ltsoveranakin.ghoulish.client.misc.Pos;
 import me.ltsoveranakin.ghoulish.client.util.WindowUtil;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import org.jetbrains.annotations.Range;
 
 import java.util.ArrayList;
@@ -78,13 +79,13 @@ public abstract class AbstractHudModule extends Module implements ISubHudRender 
     }
 
     @Override
-    public final void onRender(DrawContext ctx, float tickDelta, boolean isGui) {
+    public final void onRender(DrawContext ctx, RenderTickCounter tickDelta, boolean isGui) {
         collisionBoxes.clear();
 
         onRenderImpl(ctx, tickDelta, isGui);
     }
 
-    public abstract void onRenderImpl(DrawContext ctx, float tickDelta, boolean isGui);
+    public abstract void onRenderImpl(DrawContext ctx, RenderTickCounter tickDelta, boolean isGui);
 
     public List<Box2D> getCollisionBoxes() {
         return collisionBoxes;
