@@ -3,11 +3,10 @@ package me.ltsoveranakin.ghoulish.client;
 import me.ltsoveranakin.ghoulish.client.event.EventInitializer;
 import me.ltsoveranakin.ghoulish.client.features.commands.CommandManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.ModuleManager;
+import me.ltsoveranakin.ghoulish.client.features.modules.conglomeration.ConglomerationManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.storage.StorageHandler;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.fabricmc.api.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,6 +24,7 @@ public class GhoulishClient implements ClientModInitializer {
 
         ModuleManager.init();
         StorageHandler.init();
+        ConglomerationManager.init();
         CommandManager.init();
         EventInitializer.init();
 

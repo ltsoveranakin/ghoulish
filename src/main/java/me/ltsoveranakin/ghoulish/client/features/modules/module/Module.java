@@ -92,6 +92,18 @@ public class Module extends NamedDesc implements MinecraftInstance, IDispatchabl
         onEnable();
     }
 
+    public void tryEnable() {
+        if (!isEnabled()) {
+            enable();
+        }
+    }
+
+    public void tryDisable() {
+        if (isEnabled()) {
+            disable();
+        }
+    }
+
     public void onDisable() {
     }
 

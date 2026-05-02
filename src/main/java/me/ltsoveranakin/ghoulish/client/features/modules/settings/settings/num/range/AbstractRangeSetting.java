@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public abstract class AbstractRangeSetting<T extends Number & Comparable<T>> {
-    private final static double INC_AMT = Math.toRadians(15);
+    private static final double INC_AMT = Math.toRadians(15);
 
     private double sinInc = 0;
     private double sinVal = 0;
@@ -49,7 +49,7 @@ public abstract class AbstractRangeSetting<T extends Number & Comparable<T>> {
 
     public final T getRealisticRandom() {
         // 3.14/2 = 1.57 -- sin = y
-        if(getMin().equals(getMax())) {
+        if (getMin().equals(getMax())) {
             return getMax();
         }
 
@@ -61,7 +61,6 @@ public abstract class AbstractRangeSetting<T extends Number & Comparable<T>> {
     }
 
     /**
-     *
      * @return smooth-ish sin value, always positive
      */
 
