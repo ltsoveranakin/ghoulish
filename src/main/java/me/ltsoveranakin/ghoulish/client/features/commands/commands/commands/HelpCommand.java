@@ -21,7 +21,7 @@ public class HelpCommand extends Command {
 
         return new ArrayList<>(command.getArguments()
                 .stream()
-                .map(setting -> setting.getName().replaceAll(" ", "-"))
+                .map(setting -> setting.getName().replace(" ", "-"))
                 .toList());
     }).optional();
 
@@ -67,8 +67,13 @@ public class HelpCommand extends Command {
             }
 
             info(argFmt.toString());
+
+            info("For commands with arguments, if a given argument isn't required then it will be postfixed with a \"?\"");
+            info("List and Enum arguments accept a string from the given list (essentially the same on the user end)");
+            info("String arguments accept any valid text (without spaces)");
+            info("Take a wild guess what number arguments accept");
         } else {
-            String argName = argumentName.get().replaceAll("-", " ");
+            String argName = argumentName.get().replace("-", " ");
             Argument<?> argument = command.getArgument(argName);
 
             if (argument == null) {

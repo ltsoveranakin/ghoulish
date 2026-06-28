@@ -10,7 +10,7 @@ public class ListCommand extends Command {
     private final ListArgument moduleName = addList("module name", "the name of the module to choose", ModuleManager.MODULE_NAMES).optional();
 
     public ListCommand() {
-        super("list", "lists modules");
+        super("list-modules", "lists modules and their settings");
     }
 
     @Override

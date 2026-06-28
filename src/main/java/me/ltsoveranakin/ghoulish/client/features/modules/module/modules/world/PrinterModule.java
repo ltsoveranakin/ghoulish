@@ -7,7 +7,7 @@ import net.minecraft.client.world.ClientWorld;
 
 public class PrinterModule extends Module implements ISubTick {
     public PrinterModule() {
-        super("Printer", "Automatically prints the loaded schematic", Category.World);
+        super("printer", "Automatically prints the loaded schematic (doesn't work)", Category.World);
     }
 
     @Override
