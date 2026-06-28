@@ -6,8 +6,13 @@ import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.ISubscription;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.client.GuiModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.client.VersionSpoof;
-import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.combat.*;
-import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.*;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.combat.AimAssist;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.combat.AutoCrystal;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.combat.TriggerBot;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.ArrayListModule;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.HudEditorModule;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.PacketListModule;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.TabGUIModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.misc.DebugModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.misc.FakePlayer;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.AutoTool;
@@ -32,7 +37,7 @@ public class ModuleManager implements ISubKey, MinecraftInstance {
     private static final Map<Class<? extends Module>, Module> moduleMap = new HashMap<>();
     private static final Map<String, Module> moduleNameMap = new HashMap<>();
 
-    private static @Nullable Module bindingModule;
+    private static @Nullable BindingModule bindingModule;
 
     public static void init() {
         addModules();
@@ -86,13 +91,13 @@ public class ModuleManager implements ISubKey, MinecraftInstance {
         return (T) moduleMap.get(moduleClass);
     }
 
-    public static @Nullable Module getBindingModule() {
+    public static @Nullable BindingModule getBindingModule() {
         return bindingModule;
     }
 
-    public static void setBindingModule(@Nullable Module bindingModule) {
+    public static void setBindingModule(@Nullable BindingModule bindingModule) {
         ModuleManager.bindingModule = bindingModule;
-        if (bindingModule != null) ChatUtil.info("Binding " + bindingModule.getName() + " ...");
+        if (bindingModule != null) ChatUtil.info("Binding " + bindingModule.module().getName() + " ...");
     }
 
     public static List<Module> inCategory(Category category) {
@@ -103,8 +108,9 @@ public class ModuleManager implements ISubKey, MinecraftInstance {
     public void onKey(long window, int key, int scancode, int action, int modifier) {
         if (action != GLFW.GLFW_PRESS || mc.currentScreen != null || key == -1) return;
 
+
         if (bindingModule != null) {
-            bindingModule.getBind().set(key);
+            bindingModule.setting().set(key);
             bindingModule = null;
             StorageHandler.saveConfig();
             ChatUtil.info("Set bind to " + key + " (key " + KeyUtil.getKeyName(key) + ")");

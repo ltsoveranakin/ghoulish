@@ -2,11 +2,14 @@ package me.ltsoveranakin.ghoulish.client.features.gui.clickgui.old.widget.widget
 
 import me.ltsoveranakin.ghoulish.client.features.gui.clickgui.old.OldClickGuiScreen;
 import me.ltsoveranakin.ghoulish.client.features.gui.clickgui.old.widget.GuiWidget;
+import me.ltsoveranakin.ghoulish.client.features.modules.BindingModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.ModuleManager;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.misc.DebugModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.EnumSettingType;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.*;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.BindSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.BoolSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.EnumSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.NumSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.floatingpoint.FloatingPointSetting;
 import me.ltsoveranakin.ghoulish.client.misc.MinecraftInstance;
@@ -67,11 +70,13 @@ public class SettingWidget extends GuiWidget<SettingWidget> implements Minecraft
                 double percentage = (numSetting.get().doubleValue() + addVal) / (addVal + numSetting.getMax().doubleValue());
                 RenderUtil2d.drawBox(stack, getPos(), (int) (lChild * percentage), RenderUtil2d.FONT_HEIGHT, guiModule.GUI_ENABLED.getColor());
             }
-        } else if (setting instanceof BindSetting) {
-            if (ModuleManager.getBindingModule() == setting.getMod()) {
+        } else if (setting instanceof BindSetting bs) {
+            BindingModule bindingModule = ModuleManager.getBindingModule();
+
+            if (bindingModule != null && bindingModule.module() == bs.getMod()) {
                 displayName += " : BINDING";
             } else {
-                displayName += " : " + KeyUtil.getKeyName(setting.getMod().getBind().get());
+                displayName += " : " + KeyUtil.getKeyName(bs.get());
             }
         } else if (setting instanceof EnumSetting<?> enumSetting) {
             displayName += " : " + enumSetting.get().name();
@@ -93,13 +98,13 @@ public class SettingWidget extends GuiWidget<SettingWidget> implements Minecraft
                     } else {
                         boolSetting.set(!boolSetting.get());
                     }
-                } else if (setting instanceof BindSetting) {
+                } else if (setting instanceof BindSetting bs) {
                     if (ModuleManager.getBindingModule() == null) {
                         if (mc.currentScreen instanceof OldClickGuiScreen) {
                             mc.currentScreen.close();
                         }
-                        ModuleManager.setBindingModule(setting.getMod());
-                    } else if (ModuleManager.getBindingModule() == setting.getMod()) {
+                        ModuleManager.setBindingModule(new BindingModule(setting.getMod(), bs));
+                    } else if (ModuleManager.getBindingModule().module() == setting.getMod()) {
                         ModuleManager.setBindingModule(null);
                     }
                 } else if (setting instanceof NumSetting<?> numSetting) {

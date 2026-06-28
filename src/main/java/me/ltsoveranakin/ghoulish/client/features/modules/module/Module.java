@@ -5,10 +5,17 @@ import me.ltsoveranakin.ghoulish.client.features.modules.Category;
 import me.ltsoveranakin.ghoulish.client.features.modules.group.SettingGroup;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.Setting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.RGBASettingCollection;
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.colorsettings.*;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.colorsettings.BoolColorSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.colorsettings.FloatColorSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.colorsettings.IntColorSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.label.LabelSetting;
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.*;
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.*;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.BindSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.BoolSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.EnumSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.StringSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.ByteSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.IntSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.LongSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.floatingpoint.floatingpoint.DoubleSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.floatingpoint.floatingpoint.FloatSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.range.AbstractRangeSetting;
@@ -21,8 +28,11 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
-import java.awt.Color;
-import java.util.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Module extends NamedDesc implements MinecraftInstance, IDispatchable {
     private final List<Setting<?>> settings = new ArrayList<>();
@@ -33,7 +43,7 @@ public class Module extends NamedDesc implements MinecraftInstance, IDispatchabl
     private final SettingGroup globalSettings = group("global", "these settings are the same on every module, and change how the module behaves in the same way");
 
     private final BoolSetting enabled = globalSettings
-            .register(addBool("enabled", "setting on whether or not the module is enable", false));
+            .register(addBool("enabled", "setting on whether the module is enabled", false));
 
     private final BindSetting bind = globalSettings
             .register(addBind("bind", "keybinding, when this key is pressed it will toggle the module"));

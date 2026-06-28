@@ -11,18 +11,18 @@ import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.RG
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.EnumSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.ByteSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.LongSetting;
+import me.ltsoveranakin.ghoulish.client.misc.ClientColors;
 import me.ltsoveranakin.ghoulish.client.storage.StorageHandler;
 import net.minecraft.client.world.ClientWorld;
 import org.lwjgl.glfw.GLFW;
 
-import java.awt.Color;
 
 public class GuiModule extends Module implements ISubKey, ISubTick {
-    public final RGBASettingCollection GUI_BG_COLOR = addCol("gui background", "bg color", new Color(28, 42, 28, 63));
-    public final RGBASettingCollection GUI_COLOR = addCol("gui", "color of the gui", new Color(0, 0, 0, 255));
-    public final RGBASettingCollection GUI_TEXT_COLOR = addCol("text", "color of the text", new Color(29, 68, 26, 255));
-    public final RGBASettingCollection GUI_ENABLED = addCol("gui enabled", "color of enabled modules/settings", new Color(20, 255, 0, 255));
-    public final RGBASettingCollection GUI_LABEL_COLOR = addCol("gui label", "color of labels in the clickgui", new Color(154, 0, 0, 255));
+    public final RGBASettingCollection GUI_BG_COLOR = addCol("gui background", "bg color", ClientColors.DEFAULT_BG_SCREEN_COLOR);
+    public final RGBASettingCollection GUI_COLOR = addCol("gui", "color of the gui", ClientColors.DEFAULT_GUI_COLOR);
+    public final RGBASettingCollection GUI_TEXT_COLOR = addCol("text", "color of the text", ClientColors.DEFAULT_TEXT_COLOR);
+    public final RGBASettingCollection GUI_ENABLED = addCol("gui enabled", "color of enabled modules/settings", ClientColors.DEFAULT_ENABLED_COLOR);
+    public final RGBASettingCollection GUI_LABEL_COLOR = addCol("gui label", "color of labels in the clickgui", ClientColors.DEFAULT_LABEL_COLOR);
 
     public final ByteSetting SIDE_BUFFER = addByte("side buffer", "buffer (in pixels) from the edge that text should be", 4, 1, 10);
     public final LongSetting DESC_DELAY = addLong("description delay", "delay (in ms) on when to begin rendering a description", 1000, 0, 5000);

@@ -7,26 +7,27 @@ import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.Abst
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.other.color.RGBASettingCollection;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.BindSetting;
 import me.ltsoveranakin.ghoulish.client.misc.Box2D;
+import me.ltsoveranakin.ghoulish.client.misc.ClientColors;
 import me.ltsoveranakin.ghoulish.client.storage.StorageHandler;
 import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.Color;
+import java.awt.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class TabGUIModule extends AbstractHudModule implements ISubKey {
-    public final RGBASettingCollection textColor = addCol("text", "color of the text", new Color(29, 68, 26, 255));
+    public final RGBASettingCollection textColor = addCol("text", "color of the text", ClientColors.DEFAULT_TEXT_COLOR);
     private final BindSetting selectBind = addBind("select", "the keybind to select the current selection", GLFW_KEY_RIGHT);
     private final BindSetting deselectBind = addBind("deselect", "the keybind to deselect the current selection", GLFW_KEY_LEFT);
     private final BindSetting upBind = addBind("up", "the keybind to select the above selection", GLFW_KEY_UP);
     private final BindSetting downBind = addBind("down", "the keybind to select the below selection", GLFW_KEY_DOWN);
 
-    private final RGBASettingCollection bGColor = addCol("background", "the background color of the tabgui", new Color(0, 0, 0));
-    private final RGBASettingCollection bGSelected = addCol("background selected", "the selected background color of the tabgui", new Color(20, 255, 0, 255));
-    private final RGBASettingCollection bgModuleEnabled = addCol("background module enabled", "the background color of settings which are enabled", new Color(191, 229, 189, 255));
+    private final RGBASettingCollection bGColor = addCol("background", "the background color of the tab gui", ClientColors.DEFAULT_GUI_COLOR);
+    private final RGBASettingCollection bGSelected = addCol("background selected", "the selected background color of the tabgui", new Color(255, 0, 0, 255));
+    private final RGBASettingCollection bgModuleEnabled = addCol("background module enabled", "the background color of settings which are enabled", ClientColors.DEFAULT_ENABLED_COLOR);
 
     private int categoryIndex = 0;
     private Category categoryOn = Category.values()[categoryIndex];
@@ -41,7 +42,7 @@ public class TabGUIModule extends AbstractHudModule implements ISubKey {
     private int largestModule = 0;
 
     public TabGUIModule() {
-        super("tabgui", "manage modules without opening the cgui", 0f, 0f);
+        super("tabgui", "manage modules without opening the click gui", 0f, 0f);
     }
 
     @Override
