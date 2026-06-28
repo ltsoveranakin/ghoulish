@@ -1,5 +1,6 @@
 package me.ltsoveranakin.ghoulish.client.storage.config;
 
+import me.ltsoveranakin.ghoulish.client.GhoulishClient;
 import me.ltsoveranakin.ghoulish.client.features.modules.Category;
 import me.ltsoveranakin.ghoulish.client.interfaces.state.Loadable;
 import me.ltsoveranakin.ghoulish.client.interfaces.state.Saveable;
@@ -20,6 +21,7 @@ public class ConfigFile implements Saveable, Loadable {
 
     /**
      * Loads a config, and handles invalid config by deleting file and creating a backup
+     *
      * @param name
      */
 
@@ -35,14 +37,15 @@ public class ConfigFile implements Saveable, Loadable {
                     cats.put(category, new ConfigCategory(x, 40, category));
                     x += 50;
                 }
-                System.out.println("SAVING CONFIG");
+                GhoulishClient.LOG.info("SAVING CONFIG");
                 save();
             } else {
-                System.out.println("LOADING CONFIG");
+                GhoulishClient.LOG.info("LOADING CONFIG");
                 load();
             }
 
         } catch (Exception e) {
+            GhoulishClient.LOG.error("Unable to instantiate ConfigFile");
             errCreating = true;
             File invalidConfigFile = getFile(name, true);
             while (invalidConfigFile.exists()) {
@@ -61,6 +64,7 @@ public class ConfigFile implements Saveable, Loadable {
 
     /**
      * Boolean value of error creating config. If this returns true, the config file was deleted and this object should be freed.
+     *
      * @return true if and only if the config was loaded with an error.
      */
 
@@ -125,8 +129,15 @@ public class ConfigFile implements Saveable, Loadable {
             }
         }
 
+        for (Category category : Category.values()) {
+            if (!cats.containsKey(category)) {
+                cats.put(category, new ConfigCategory(0, 0, category));
+            }
+        }
+
         dis.close(); // auto closes the FileInputStream
     }
+
     public File getFile() {
         return file;
     }

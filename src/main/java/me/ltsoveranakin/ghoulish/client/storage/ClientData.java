@@ -1,5 +1,6 @@
 package me.ltsoveranakin.ghoulish.client.storage;
 
+import me.ltsoveranakin.ghoulish.client.GhoulishClient;
 import me.ltsoveranakin.ghoulish.client.features.commands.commands.Command;
 import me.ltsoveranakin.ghoulish.client.interfaces.state.Loadable;
 import me.ltsoveranakin.ghoulish.client.interfaces.state.Saveable;
@@ -33,7 +34,7 @@ public class ClientData implements Saveable, Loadable {
         String curConf = dis.readUTF();
         String prefix = dis.readUTF();
 
-        System.out.println("CURRENT CONFIG: " + curConf);
+        GhoulishClient.LOG.info("CURRENT CONFIG: " + curConf);
 
         ConfigFile.CURRENT_CONFIG = new ConfigFile(curConf);
         if (ConfigFile.CURRENT_CONFIG.hasErrorCreating()) {
