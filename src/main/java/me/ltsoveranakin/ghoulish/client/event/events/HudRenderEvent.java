@@ -13,8 +13,8 @@ public class HudRenderEvent {
     }
 
     public static void dispatch(DrawContext ctx, RenderTickCounter tickDelta) {
-        for(ISubHudRender ist : Subscriptions.HUD_RENDER) {
-            if(ist instanceof IDispatchable d && !d.shouldDispatch()) continue;
+        for (ISubHudRender ist : Subscriptions.HUD_RENDER) {
+            if (ist instanceof IDispatchable d && d.shouldSkipDispatch()) continue;
             ist.onRender(ctx, tickDelta, false);
         }
     }

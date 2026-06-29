@@ -15,6 +15,7 @@ import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.hud.hud.TabGUIModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.misc.DebugModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.misc.FakePlayer;
+import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.movement.SpeedModule;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.AutoTool;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.Eagle;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player.autoclicker.autoclicker.LeftClicker;
@@ -64,6 +65,7 @@ public class ModuleManager implements ISubKey, MinecraftInstance {
         add(new TabGUIModule());
         add(new PacketListModule());
         add(new PrinterModule());
+        add(new SpeedModule());
     }
 
     private static <T extends Module> void add(T module) {

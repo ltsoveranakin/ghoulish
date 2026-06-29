@@ -17,9 +17,9 @@ public class MixinClientConnection {
 
     @Inject(method = "handlePacket", at = @At("HEAD"), cancellable = true)
     private static <T extends PacketListener> void handlePacket(Packet<T> packet, PacketListener listener, CallbackInfo ci) {
-        if(packet instanceof BundleS2CPacket) {
-            for(ISubSPacket subSPacket : Subscriptions.S_PACKETS) {
-                if(subSPacket instanceof IDispatchable d && !d.shouldDispatch()) continue;
+        if (packet instanceof BundleS2CPacket) {
+            for (ISubSPacket subSPacket : Subscriptions.S_PACKETS) {
+                if (IDispatchable.shouldSkip(subSPacket)) continue;
                 subSPacket.onSPacket(packet, ci);
             }
         }

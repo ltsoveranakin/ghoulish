@@ -1,10 +1,10 @@
 package me.ltsoveranakin.ghoulish.client.features.modules.module.modules.combat;
 
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.IntSetting;
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.ISubTick;
 import me.ltsoveranakin.ghoulish.client.features.modules.Category;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.BoolSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.IntSetting;
 import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.floatingpoint.floatingpoint.DoubleSetting;
 import me.ltsoveranakin.ghoulish.client.util.CrystalUtil;
 import me.ltsoveranakin.ghoulish.client.util.InvUtil;
@@ -46,7 +46,7 @@ public class AutoCrystal extends Module implements ISubTick {
         }
         tick = 0;
 
-        if(clicksAfterLeft > 0) {
+        if (clicksAfterLeft > 0) {
             clicksAfterLeft--;
             KeyBinding.onKeyPressed(mc.options.attackKey.getDefaultKey());
             return;
@@ -57,16 +57,16 @@ public class AutoCrystal extends Module implements ISubTick {
     }
 
     private void placeCrys() {
-        if(!placeCrystals.get()) return;
+        if (!placeCrystals.get()) return;
 
         var blHitRes = (BlockHitResult) mc.player.raycast(maxDistPlace.get(), 1, true);
-        if((blHitRes.getSide().equals(Direction.UP) || !topOnly.get()) && CrystalUtil.canPlaceCrystal(blHitRes.getBlockPos())) {
+        if ((blHitRes.getSide().equals(Direction.UP) || !topOnly.get()) && CrystalUtil.canPlaceCrystal(blHitRes.getBlockPos())) {
             int crystalSlot = InvUtil.findItemInHotbar(Items.END_CRYSTAL);
-            if(crystalSlot == -1) {
+            if (crystalSlot == -1) {
                 return;
             }
 
-            if(mc.player.getInventory().selectedSlot != crystalSlot) {
+            if (mc.player.getInventory().selectedSlot != crystalSlot) {
                 mc.player.getInventory().selectedSlot = crystalSlot;
                 return;
             }
@@ -77,8 +77,9 @@ public class AutoCrystal extends Module implements ISubTick {
     }
 
     private void breakCrys() {
-        if(!breakCrystals.get()) return;
+        if (!breakCrystals.get()) return;
 
+        // TODO: would this not alr be normalized?
         Vec3d vec = mc.player.getRotationVector().normalize();
 
         for (double i = 0; i < maxDistBreak.get(); i++) {

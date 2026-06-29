@@ -1,9 +1,10 @@
 package me.ltsoveranakin.ghoulish.client.features.modules.module.modules.player;
 
-import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.IntSetting;
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.ISubTick;
 import me.ltsoveranakin.ghoulish.client.features.modules.Category;
 import me.ltsoveranakin.ghoulish.client.features.modules.module.Module;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.EnumSetting;
+import me.ltsoveranakin.ghoulish.client.features.modules.settings.settings.num.nums.IntSetting;
 import me.ltsoveranakin.ghoulish.client.util.BlockUtil;
 import me.ltsoveranakin.ghoulish.client.util.InvUtil;
 import me.ltsoveranakin.ghoulish.client.util.PlayerUtil;
@@ -13,19 +14,35 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.hit.BlockHitResult;
 
 public class AutoTool extends Module implements ISubTick {
-    private final IntSetting delay = addInt("delay", "delay from beginning breaking a block, to selecting a tool", 3, 0, 20);
+    private final EnumSetting<AutoToolMode> mode = addEnum("mode", "macro mode: switches to the best tool hotbar and disables the module; active mode: switchest to the best tool when you start to mine a block", AutoToolMode.Active);
+
+    private final IntSetting delay = addInt("delay", "delay from beginning breaking a block, to selecting a tool", 3, 0, 20).requiresSetting(mode, AutoToolMode.Active);
 
     private int tick = 0;
 
     public AutoTool() {
-        super("autotool", "automatically switches to the best tool", Category.PLAYER);
+        super("autotool", "automatically switches to the best tool in your hotbar", Category.PLAYER);
     }
 
     @Override
     public void onTick(ClientWorld world) {
-        if (!mc.options.attackKey.isPressed() || mc.targetedEntity != null) {
+        if (!mc.options.attackKey.isPressed()) {
             tick = 0;
             return;
+        }
+
+
+        if (tick >= delay.get()) {
+            performSwitch();
+            tick = 0;
+        }
+
+        tick++;
+    }
+
+    private void performSwitch() {
+        if (mc.targetedEntity != null) {
+            return;// for now
         }
 
         BlockHitResult result = (BlockHitResult) mc.player.raycast(PlayerUtil.getBlockReach(), 1, false);
@@ -45,11 +62,7 @@ public class AutoTool extends Module implements ISubTick {
             }
         }
 
-        if (tick >= delay.get()) {
-            mc.player.getInventory().selectedSlot = highest;
-        }
-
-        tick++;
+        mc.player.getInventory().selectedSlot = highest;
     }
 
     @Override
@@ -57,5 +70,15 @@ public class AutoTool extends Module implements ISubTick {
         if (mc.player.isCreative()) {
             error("You should probably be in survival for this...");
         }
+
+        if (mode.get() == AutoToolMode.Macro) {
+            performSwitch();
+            disable();
+        }
+    }
+
+    private enum AutoToolMode {
+        Active,
+        Macro
     }
 }

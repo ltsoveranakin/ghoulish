@@ -49,10 +49,10 @@ public class Module extends NamedDesc implements MinecraftInstance, IDispatchabl
             .register(addBind("bind", "keybinding, when this key is pressed it will toggle the module"));
 
     private final EnumSetting<NotifMode> notifs = globalSettings
-            .register(addEnum("notifications", "", NotifMode.NONE));
+            .register(addEnum("toggle notifications", "where you should be notified when this module is toggled", NotifMode.NONE));
 
     private final BoolSetting renderOnList = globalSettings
-            .register(addBool("renderonlist", "renders this module on the arraylist", true));
+            .register(addBool("render on arraylist", "renders this module on the arraylist", true));
 
     private final SettingGroup defaultLabel = group("default", "these settings are different on each module and vary greatly");
 
@@ -87,7 +87,9 @@ public class Module extends NamedDesc implements MinecraftInstance, IDispatchabl
     public final void toggle() {
         if (enabled.get()) {
             disable();
-        } else enable();
+        } else {
+            enable();
+        }
     }
 
     public final void disable() {
@@ -246,7 +248,7 @@ public class Module extends NamedDesc implements MinecraftInstance, IDispatchabl
     }
 
     @Override
-    public boolean shouldDispatch() {
+    public boolean shouldSkipDispatch() {
         return enabled.get();
     }
 

@@ -1,6 +1,7 @@
 package me.ltsoveranakin.ghoulish.client.mixin;
 
 import me.ltsoveranakin.ghoulish.client.event.sub.Subscriptions;
+import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.IDispatchable;
 import me.ltsoveranakin.ghoulish.client.event.sub.interfaces.ISubKey;
 import net.minecraft.client.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +14,8 @@ public class MixinKeyboard {
 
     @Inject(method = "onKey", at = @At("HEAD"))
     private void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
-        for(ISubKey sk : Subscriptions.KEYS) {
+        for (ISubKey sk : Subscriptions.KEYS) {
+            if (IDispatchable.shouldSkip(sk)) continue;
             sk.onKey(window, key, scancode, action, modifiers);
         }
     }

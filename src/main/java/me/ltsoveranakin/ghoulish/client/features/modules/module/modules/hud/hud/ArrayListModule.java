@@ -11,11 +11,14 @@ import me.ltsoveranakin.ghoulish.client.util.RenderUtil2d;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 
-import java.awt.Color;
-import java.util.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ArrayListModule extends AbstractHudModule {
-    private final IntSetting sideBuf = addInt("padding", "padding beyond the module name added to the background", 3, 0, 8);
+    private final IntSetting sidePadding = addInt("horizontal padding", "padding beyond the module name added to the background", 3, 0, 8);
     private final RGBASettingCollection bgArCol = addCol("background", "background color of the arraylist", new Color(33, 82, 171, 144));
     private final RGBASettingCollection arTxtCol = addCol("text", "color of the text on the arraylist", new Color(12, 18, 35, 144));
 
@@ -50,20 +53,20 @@ public class ArrayListModule extends AbstractHudModule {
                 getCollisionBoxes().add(RenderUtil2d.drawBox(ctx,
                         renX,
                         renY,
-                        nameWidth + renX + (sideBuf.get() * 2),
+                        nameWidth + renX + (sidePadding.get() * 2),
                         renY + RenderUtil2d.FONT_HEIGHT,
                         bgArCol.getColor()));
 
-                RenderUtil2d.drawText(ctx, module.getName(), (renX) + sideBuf.get(), renY, arTxtCol.getColor());
+                RenderUtil2d.drawText(ctx, module.getName(), (renX) + sidePadding.get(), renY, arTxtCol.getColor());
             } else {
                 getCollisionBoxes().add(RenderUtil2d.drawBox(ctx,
-                        (renX - nameWidth) - (sideBuf.get() * 2),
+                        (renX - nameWidth) - (sidePadding.get() * 2),
                         renY,
                         renX,
                         renY + RenderUtil2d.FONT_HEIGHT,
                         bgArCol.getColor()));
 
-                RenderUtil2d.drawText(ctx, module.getName(), (renX - nameWidth) - sideBuf.get(), renY, arTxtCol.getColor());
+                RenderUtil2d.drawText(ctx, module.getName(), (renX - nameWidth) - sidePadding.get(), renY, arTxtCol.getColor());
             }
 
             renY += RenderUtil2d.FONT_HEIGHT;
@@ -86,9 +89,9 @@ public class ArrayListModule extends AbstractHudModule {
     private enum SortMode {
         ALPHABETICAL,
         SIZE
-    }    private final EnumSetting<SortMode> sort = addEnum("sortmode", "the order in which modules are listed", SortMode.ALPHABETICAL).onSet(this::sort);
+    }
 
-
+    private final EnumSetting<SortMode> sort = addEnum("sortmode", "the order in which modules are listed", SortMode.ALPHABETICAL).onSet(this::sort);
 
 
     private final BoolSetting invertSort = addBool("invertsort", "inverts the direction in which modules are sorted", false).onSet(this::sort);

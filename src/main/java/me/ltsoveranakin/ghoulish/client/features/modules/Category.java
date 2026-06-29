@@ -12,7 +12,8 @@ public enum Category {
     CLIENT,
     MISC,
     World,
-    HUD;
+    HUD,
+    Movement;
 
     // ArrayList for TabGui
     private final List<Module> modules = new ArrayList<>(); // updated in ModuleManager.java

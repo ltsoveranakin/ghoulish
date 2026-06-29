@@ -15,7 +15,7 @@ public class TickEvent implements MinecraftInstance {
 
     private static void dispatch(ClientWorld clientWorld) {
         for (ISubTick ist : Subscriptions.TICKS) {
-            if (ist instanceof IDispatchable d && !d.shouldDispatch()) continue;
+            if (ist instanceof IDispatchable d && d.shouldSkipDispatch()) continue;
             ist.onTick(clientWorld);
         }
     }
